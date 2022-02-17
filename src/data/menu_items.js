@@ -10,8 +10,8 @@ export default [{
     {
         name: "Products",
         path: "/products",
-        text: "Pngredients",
-        component: "pngredient/Management",
+        text: "Products",
+        component: "ingredient/Management",
         // divider: true,
         isActive: true,
         // hiddenInTheSidebar: true,

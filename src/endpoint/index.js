@@ -1,77 +1,78 @@
-import axios from 'axios'
+import axios from "axios";
 
-const baseURL = process.env.VUE_APP_ENDPOINT_URL ?? 'http://127.0.0.1:8000/api/';
+const baseURL =
+    process.env.VUE_APP_ENDPOINT_URL ??
+    "http://alegra-restaurant-test.test/api/v1/";
 
-const format = 'json';
+const format = "json";
 const tz_in_minutes = new Date().getTimezoneOffset();
 
 const headers = {
-    'Content-Type' : 'application/json',
-    Accept : 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
     tz_in_minutes,
-    lg : navigator.language || navigator.userLanguage,
+    lg: navigator.language || navigator.userLanguage,
     device: navigator.userAgent,
 };
 
 const instance = axios.create({
-    mode: 'cors',
-    cache: 'no-cache', 
+    mode: "cors",
+    cache: "no-cache",
     baseURL,
     headers,
-    redirect: 'follow', 
-    referrerPolicy: 'no-referrer', 
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
 });
 
 instance.interceptors.response.use(
-    response => response,
-    error => {
-        const { response } = error
-        const { data, status } = response
+    (response) => response,
+    (error) => {
+        const { response } = error;
+        const { data, status } = response;
 
-        const res = {}
+        const res = {};
 
         switch (status) {
             case 422:
-                const { errors, message } = data
-                res['errors'] = errors ? errors : data
+                const { errors, message } = data;
+                res["errors"] = errors ? errors : data;
                 break;
 
             case 419:
-                window.location.reload()
+                window.location.reload();
                 break;
-        
+
             default:
-                res['errors'] = ['Error no controlado']
+                res["errors"] = ["Error no controlado"];
                 break;
         }
 
-        return Promise.reject(res)
+        return Promise.reject(res);
     }
-)
+);
 
 export default {
-    get({url,params}){
-        return instance.get(url,{
+    get({ url, params }) {
+        return instance.get(url, {
             params: {
                 ...params,
                 format,
                 tz_in_minutes,
-            }
-        })
+            },
+        });
     },
-    
-    post({url,params}){
 
-        console.log('endpoint -> params',params)
+    post({ url, params }) {
+        console.log("endpoint -> params", params);
         const param_with_format = {
             ...params,
             format,
             tz_in_minutes,
-        }
-        return instance.post(url,param_with_format,{
+        };
+        return instance.post(url, param_with_format, {
             params: {
                 tz_in_minutes,
-            }
-        })
+            },
+        });
     },
-}
+};
