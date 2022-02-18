@@ -11,7 +11,7 @@ export default [
   {
     name: "Ingredients",
     path: "/ingredients",
-    text: "Ingredients",
+    text: "Ingredientes",
     component: "ingredient/Management",
     // divider: true,
     isActive: true,
@@ -20,8 +20,8 @@ export default [
   {
     name: "Products",
     path: "/products",
-    text: "Products",
-    component: "ingredient/Management",
+    text: "Productos",
+    component: "Product/Management",
     // divider: true,
     isActive: true,
     // hiddenInTheSidebar: true,

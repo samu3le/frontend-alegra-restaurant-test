@@ -5,7 +5,7 @@
       width: '100%',
     }"
   >
-    <label :for="name" class="form-label">{{ label || "Products" }}</label>
+    <label :for="name" class="form-label">{{ label || "Ingredients" }}</label>
     <div class="input-group mb-3">
       <v-select
         :options="listData.list"

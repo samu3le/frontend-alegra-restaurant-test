@@ -6,12 +6,8 @@ export default {
     fetchingData: false,
     errors: null,
     data: {
-      // plate: 'plate',
-      // color: 'color',
-      // brand: 'brand',
-      // model: 'model',
-      // serial: 'serial',
-      // year: 'year',
+      // name: 'name',
+      // image: 'image',
     },
   },
   list: {
@@ -29,15 +25,8 @@ export default {
         // Example
         // {
         //     id: 1,
-        //     plate: 'plate',
-        //     color: 'color',
-        //     brand: 'brand',
-        //     model: 'model',
-        //     serial: 'serial',
-        //     year: 'year',
-        //     is_active: 'is_active',
-        //     created_at: 'created_at',
-        //     updated_at: 'updated_at',
+        //     name: 'name',
+        //     image: 'image',
         // }
       ],
     },

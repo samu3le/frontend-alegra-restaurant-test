@@ -33,28 +33,6 @@
       </div>
       <div class="mb-3">
         <InputText
-          name="key"
-          type="text"
-          label="Llave"
-          placeholder=""
-          v-model.trim.lazy="formValues.key"
-          :value="formValues.key"
-          :errors="formValuesErrors.key"
-        />
-      </div>
-      <div class="mb-3">
-        <InputText
-          name="stock"
-          type="number"
-          label="Cantidad"
-          placeholder=""
-          v-model.trim.lazy="formValues.stock"
-          :value="formValues.stock"
-          :errors="formValuesErrors.stock"
-        />
-      </div>
-      <div class="mb-3">
-        <InputText
           name="image"
           type="file"
           label="Imagen"
@@ -90,7 +68,7 @@ import Modal from "@/components/Modal.vue";
 import ButtonCustom from "@/components/Button.vue";
 import InputText from "@/components/InputText.vue";
 
-import useIngredient from "@/composables/useProduct";
+import useProduct from "@/composables/useProduct";
 
 import { getErrorsFromYup } from "@/helpers";
 
@@ -118,19 +96,16 @@ export default {
       return result;
     };
 
-    const { createFetchingData, createErrors, create } = useIngredient();
+    const { createFetchingData, createErrors, create } = useProduct();
 
     const schemaCreate = yup.object().shape({
       name: yup.string().required().min(2).max(25),
-      key: yup.string().required().min(2).max(25),
-      stock: yup.number().required().min(5),
+      // ingredients: yup.array(),
       // is_active: yup.boolean(),
     });
 
     let formValues = reactive({
       // name
-      // key
-      // stock
       // image
     });
 

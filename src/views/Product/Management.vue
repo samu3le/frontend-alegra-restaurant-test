@@ -45,20 +45,8 @@
                       field: 'id',
                     },
                     {
-                      label: 'Ingrediente',
+                      label: 'Nombre',
                       field: 'name',
-                      type: 'text',
-                      limit: 10,
-                    },
-                    {
-                      label: 'Llave',
-                      field: 'key',
-                      type: 'text',
-                      limit: 10,
-                    },
-                    {
-                      label: 'Cantidad',
-                      field: 'stock',
                       type: 'text',
                       limit: 10,
                     },
@@ -151,10 +139,10 @@ import ButtonCustom from "@/components/Button.vue";
 import PaginationCustom from "@/components/Pagination.vue";
 import Create from "./Create.vue";
 
-import useIngredient from "@/composables/useIngredient";
+import useProduct from "@/composables/useProduct";
 
 export default {
-  name: "IngredientManagement",
+  name: "ProductManagement",
   components: {
     TableCustom,
     ButtonCustom,
@@ -171,7 +159,7 @@ export default {
       setParams,
       getList,
       setStateChange,
-    } = useIngredient();
+    } = useProduct();
 
     onBeforeMount(() => {
       setParams({
