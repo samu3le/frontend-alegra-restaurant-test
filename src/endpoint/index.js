@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseURL =
     process.env.VUE_APP_ENDPOINT_URL ??
-    "http://alegra-restaurant-test.test/api/v1/";
+    "http://test-alegra-restaurant.test/api/v1/";
 
 const format = "json";
 const tz_in_minutes = new Date().getTimezoneOffset();
