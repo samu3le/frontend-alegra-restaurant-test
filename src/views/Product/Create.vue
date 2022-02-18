@@ -10,7 +10,7 @@
     @close="close"
   >
     <template v-slot:title>
-      <h5 class="modal-title font-weight-bold">Crear Ingrediente</h5>
+      <h5 class="modal-title font-weight-bold">Crear Producto</h5>
     </template>
     <template v-slot:body>
       <div
@@ -90,7 +90,7 @@ import Modal from "@/components/Modal.vue";
 import ButtonCustom from "@/components/Button.vue";
 import InputText from "@/components/InputText.vue";
 
-import useIngredient from "@/composables/useIngredient";
+import useIngredient from "@/composables/useProduct";
 
 import { getErrorsFromYup } from "@/helpers";
 

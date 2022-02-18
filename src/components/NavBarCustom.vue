@@ -9,7 +9,7 @@
           class="btn btn-dark d-inline-block ml-auto"
         >
           <svg
-            v-if="!isOpenSideBar"
+            v-if="isOpenSideBar"
             style="width: 0.875em"
             aria-hidden="true"
             data-prefix="fas"

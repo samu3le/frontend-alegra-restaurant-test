@@ -4,12 +4,14 @@ export default {
   data: {},
   create: {
     fetchingData: false,
-    message: null,
-    errors: {
-      // name : "name"
-      // key : " key"
-      // stock : "stock"
-      // image : "mage"
+    errors: null,
+    data: {
+      // plate: 'plate',
+      // color: 'color',
+      // brand: 'brand',
+      // model: 'model',
+      // serial: 'serial',
+      // year: 'year',
     },
   },
   list: {
@@ -27,10 +29,12 @@ export default {
         // Example
         // {
         //     id: 1,
-        //     name : "name"
-        //     key : " key"
-        //     stock : "stock"
-        //     image : "mage"
+        //     plate: 'plate',
+        //     color: 'color',
+        //     brand: 'brand',
+        //     model: 'model',
+        //     serial: 'serial',
+        //     year: 'year',
         //     is_active: 'is_active',
         //     created_at: 'created_at',
         //     updated_at: 'updated_at',

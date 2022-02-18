@@ -5,7 +5,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col">
-              <h4 class="card-title">Listado Ingredientes</h4>
+              <h4 class="card-title">Listado Productos</h4>
             </div>
             <div class="col">
               <div class="d-flex justify-content-end gap-2">
@@ -83,6 +83,18 @@
                   @update="updateList"
                 >
                   <template v-slot:actions="{ dataRow }">
+                    <!-- <div class="form-check form-switch">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        :checked="dataRow.is_active"
+                        @change="
+                          state_change({
+                            active: $event.target.checked,
+                            id: dataRow.id,
+                          })
+                        "
+                      /> -->
 
                     <div class="btn-group" role="group" aria-label="">
                       <button

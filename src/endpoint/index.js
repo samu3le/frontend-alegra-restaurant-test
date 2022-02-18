@@ -14,7 +14,7 @@ const headers = {
   lg: navigator.language || navigator.userLanguage,
   device: navigator.userAgent,
   Authorization:
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZDc1ZjI4NmMtOWZkZS00YzliLWE4ZTYtNDQ2NjY4NWQxOTFkIiwiZXhwIjoxNjQ1NzYyOTExfQ.1EkAAMv9-bLBCT6mFDWCUOjlFvxXlul7GkxzKGIZPYQ",
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZDc1ZjI4NmMtOWZkZS00YzliLWE4ZTYtNDQ2NjY4NWQxOTFkIiwiZXhwIjoxNjQ1ODA4Njk4fQ.zS-eMG6T-bz4TLdANyDoTAdd9HzgVJ-gc47pp4QBVS0",
 };
 
 const instance = axios.create({
