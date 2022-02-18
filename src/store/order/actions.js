@@ -27,15 +27,14 @@ export default {
         return Promise.reject(err);
       });
   },
-  create({ commit }, { name, image }) {
+  create({ commit }, { quantity }) {
     commit(types.CREATE_FETCH_REQUEST);
 
     return endpoint
       .post({
         url: `${types.route}/create`,
         params: {
-          name,
-          image,
+          quantity,
         },
       })
       .then(({ data }) => {
