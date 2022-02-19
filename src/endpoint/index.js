@@ -10,11 +10,8 @@ const tz_in_minutes = new Date().getTimezoneOffset();
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  tz_in_minutes,
-  lg: navigator.language || navigator.userLanguage,
-  device: navigator.userAgent,
   Authorization:
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZDc1ZjI4NmMtOWZkZS00YzliLWE4ZTYtNDQ2NjY4NWQxOTFkIiwiZXhwIjoxNjQ1ODI3MDc0fQ.QopC0jTxiKhSHzfhZxrPKN9DGMdgnv-k81cOzVTjQVc",
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1dWlkIjoiZDc1ZjI4NmMtOWZkZS00YzliLWE4ZTYtNDQ2NjY4NWQxOTFkIiwiZXhwIjoxNjQ1ODQyMDIzfQ.eaD1OnYkEuJH2ODW6otZvWemrHRAVekczYopeu9tAro",
 };
 
 const instance = axios.create({
@@ -58,8 +55,6 @@ export default {
     return instance.get(url, {
       params: {
         ...params,
-        format,
-        tz_in_minutes,
       },
     });
   },
@@ -68,13 +63,9 @@ export default {
     console.log("endpoint -> params", params);
     const param_with_format = {
       ...params,
-      format,
-      tz_in_minutes,
     };
     return instance.post(url, param_with_format, {
-      params: {
-        tz_in_minutes,
-      },
+      params: {},
     });
   },
 };
