@@ -52,13 +52,12 @@
                     {
                       label: 'Estado',
                       field: 'state',
-                      type: 'text',
+                      type: 'state',
                     },
                     {
                       label: 'Propietario',
-                      field: 'created_by',
-                      type: 'text',
-                      limit: 10,
+                      field: 'owner',
+                      type: 'owner',
                     },
                     {
                       label: 'Accion',
@@ -70,46 +69,48 @@
                   :per_page="listParams.per_page"
                   @update="updateList"
                 >
-                  <template v-slot:actions="{ dataRow }">
-                    <!-- <div class="form-check form-switch">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        :checked="dataRow.is_active"
+                  <template
+                    v-slot:custom="{ dataRow, dataField, dataFieldExact }"
+                  >
+                    <div v-if="dataField == 'seat'">
+                      <strong>Fila: </strong>{{ dataFieldExact.seat_y }}
+                      <br />
+                      <strong>N°: </strong>{{ dataFieldExact.seat_x }}
+                    </div>
+                    <div v-else-if="dataField == 'passenger'">
+                      <strong>Documento: </strong
+                      >{{ dataFieldExact.document.substring(0, 10) }}
+                      <br />
+                      <strong>Nombres: </strong
+                      >{{ dataFieldExact.names.substring(0, 10) }}
+                      <br />
+                      <strong>Apellidos: </strong
+                      >{{ dataFieldExact.lastname.substring(0, 10) }}
+                    </div>
+                    <div v-else-if="dataField == 'journey_driver'"></div>
+                    <div v-else-if="dataField == 'states'">
+                      <select
+                        class="form-select"
                         @change="
                           state_change({
-                            active: $event.target.checked,
                             id: dataRow.id,
+                            states: $event.target.value,
                           })
                         "
-                      /> -->
-
-                    <div class="btn-group" role="group" aria-label="">
-                      <button
-                        v-on:click="modalEventUpdate(dataRow)"
-                        class="btn btn-outline-primary"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-pencil-square"
-                          viewBox="0 0 16 16"
+                        <option
+                          :value="item.value"
+                          v-for="(item, index) in states"
+                          :key="index"
+                          :selected="dataFieldExact == item.value"
                         >
-                          <path
-                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-                          />
-                          <path
-                            fill-rule="evenodd"
-                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-                          />
-                        </svg>
-                        Modificar
-                      </button>
+                          {{ item.text }}
+                        </option>
+                      </select>
                     </div>
-
-                    <!-- </div> -->
+                    <div v-else>
+                      {{ dataFieldExact }}
+                    </div>
                   </template>
                 </TableCustom>
                 <PaginationCustom
