@@ -5,6 +5,7 @@ export default [
     text: "Login",
     component: "auth/SignIn",
     isActive: true,
+    hiddenInTheSidebar: true,
   },
   {
     name: "Ingredients",
@@ -12,6 +13,8 @@ export default [
     text: "Ingredientes",
     component: "ingredient/Management",
     isActive: true,
+    requiresAuth: true,
+    // hiddenInTheSidebar: true,
   },
   {
     name: "Products",
@@ -19,6 +22,8 @@ export default [
     text: "Productos",
     component: "product/Management",
     isActive: true,
+    requiresAuth: true,
+    // hiddenInTheSidebar: true,
   },
   {
     name: "Orders",
@@ -33,5 +38,7 @@ export default [
     text: "Bodega",
     component: "warehouse/Management",
     isActive: true,
+    requiresAuth: true,
+    // hiddenInTheSidebar: true,
   },
 ];

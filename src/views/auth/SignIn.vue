@@ -106,7 +106,6 @@ export default {
     const formValuesErrors = ref({});
 
     const signInEvent = async () => {
-      console.log("signInEvent");
       try {
         await schemaCreate.validate(formValues, { abortEarly: false });
         for (const key in formValuesErrors.value) {
@@ -114,8 +113,6 @@ export default {
         }
         try {
           await signIn(formValues);
-          console.log("signInData", signInData);
-          router.push({ name: 'Home' })
         } catch (err) {
           if (err?.errors) {
             for (const key in formValuesErrors.value) {

@@ -12,9 +12,14 @@
 
 <script>
 import { ref } from 'vue'
+
+import router from '@/router'
+
 import NavBarCustom from './components/NavBarCustom.vue'
 import SideBarCustom from './components/SideBarCustom.vue'
 import LoaderViews from '@/components/LoaderViews.vue'
+
+import useAuth from "@/composables/useAuth";
 
 export default {
     name: 'NavBar',
@@ -25,6 +30,12 @@ export default {
     },
     setup() {
 
+        const {
+            verify,
+        } = useAuth();
+
+        verify();
+        
         const isOpenSideBar = ref(false);
         const isOpenNavBar = ref(false);
 

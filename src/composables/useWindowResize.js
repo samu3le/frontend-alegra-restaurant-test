@@ -10,7 +10,6 @@ export default function useWindowResize() {
     }
 
     onMounted(() => {
-        console.log('I\'m first')
         window.addEventListener("resize", resize);
     });
 

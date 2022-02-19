@@ -10,8 +10,6 @@ export default () => {
     // dispatch -> actions
     // commit -> mutations
 
-    console.log('useConfig')
-
     return {
         getMenuItems: computed((e) => store.getters[`${object}/getMenuItems`] ),
         isOpenSideBar: computed((e) => store.getters[`${object}/isOpenSideBar`] ),
