@@ -27,17 +27,14 @@ export default {
         return Promise.reject(err);
       });
   },
-  create({ commit }, { name, key, stock, image }) {
+  buy({ commit }, { id }) {
     commit(types.CREATE_FETCH_REQUEST);
 
     return endpoint
       .post({
-        url: `${types.route}/create`,
+        url: `${types.route}/buy`,
         params: {
-          name,
-          key,
-          stock,
-          image,
+          id,
         },
       })
       .then(({ data }) => {
@@ -50,24 +47,23 @@ export default {
         return Promise.reject(err);
       });
   },
-  state_change({ commit }, { id, active }) {
-    commit(types.STATE_CHANGE_FETCH_REQUEST);
+  getShoppingList({ commit }, { id }) {
+    commit(types.LIST_FETCH_REQUEST);
 
     return endpoint
-      .post({
-        url: `${types.route}/state_change`,
+      .get({
+        url: `${types.route}/shopping_list`,
         params: {
           id,
-          active: active ? 1 : 0,
         },
       })
       .then(({ data }) => {
-        commit(types.STATE_CHANGE_FETCH_SUCCESS, data);
+        commit(types.LIST_FETCH_SUCCESS, data);
         return data;
       })
       .catch((err) => {
         console.log("err", err);
-        commit(types.STATE_CHANGE_FETCH_FAILURE, { err: err.errors });
+        commit(types.LIST_FETCH_FAILURE, { err: err.errors });
         return Promise.reject(err);
       });
   },

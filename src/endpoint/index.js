@@ -8,6 +8,7 @@ const getToken = () => {
   try {
     return JSON.parse(localStorage.getItem("auth")).token;
   } catch (e) {
+    console.error("error endpoint", e);
     return "";
   }
 };

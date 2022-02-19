@@ -21,10 +21,10 @@ export default () => {
       () => store.getters[`${module}/createFetchingData`]
     ),
     createErrors: computed(() => store.getters[`${module}/createErrors`]),
-    create: () => store.dispatch(`${module}/create`),
+    buy: () => store.dispatch(`${module}/buy`),
 
-    findOne: (e) => store.dispatch(`${module}/findOne`, e),
-    create: (e) => store.dispatch(`${module}/create`, e),
+    getShoppingList: (e) => store.dispatch(`${module}/getShoppingList`, e),
+    buy: (e) => store.dispatch(`${module}/buy`, e),
     setStateChange: (e) => store.dispatch(`${module}/state_change`, e),
 
     setFetchingData: (e) => store.dispatch(`${module}/setFetchingData`, e),
