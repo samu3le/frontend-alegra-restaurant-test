@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <div class="col-md-10">
+      <div class="navbar-brand mb-0 h1">
         <button
           type="button"
           id="sidebarCollapse"
@@ -40,43 +40,28 @@
           </svg>
         </button>
       </div>
-
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                <path
-                  d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"
-                />
-              </svg>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li class="dropdown-item" v-if="!auth">
-                <router-link to="login" class="dropdown-item">
-                  Sign In
-                </router-link>
-              </li>
-              <li class="dropdown-item" v-if="!auth">
-                <router-link to="register" class="dropdown-item">
-                  Sign Up
-                </router-link>
-              </li>
-              <li class="dropdown-item" v-else>
-                <a class="dropdown-item" href="#" @click="signOut">Sign Out</a>
-              </li>
-            </ul>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="dropdownAuth" data-bs-toggle="dropdown" aria-expanded="false">
+          <vue-feather type="user"></vue-feather>
+          <template v-if="auth">
+            {{ auth.nickname }}
+          </template>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownAuth">
+          <li class="dropdown-item" v-if="!auth">
+            <router-link to="login" class="dropdown-item">
+              Sign In
+            </router-link>
+          </li>
+          <li class="dropdown-item" v-if="!auth">
+            <router-link to="register" class="dropdown-item">
+              Sign Up
+            </router-link>
+          </li>
+          <li class="dropdown-item" v-else>
+            <a class="dropdown-item" href="#" @click="signOut">Sign Out</a>
           </li>
         </ul>
-        <span class="navbar-text"> Nickname </span>
       </div>
     </div>
   </nav>
@@ -115,14 +100,6 @@ export default {
 </script>
 
 <style scoped>
-.dropdown {
-  width: 3em;
-}
-
-.li {
-  align-content: center;
-}
-
 .navbar {
   padding: 15px 10px;
   background: #fff;
@@ -141,11 +118,4 @@ export default {
   display: none !important;
 }
 
-.dropdown-toggle::after {
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-}
 </style>
