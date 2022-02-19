@@ -4,18 +4,18 @@ const baseURL =
   process.env.VUE_APP_ENDPOINT_URL ??
   "http://test-alegra-restaurant.test/api/v1/";
 
-const headers = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-  Authorization: `Bearer ${localStorage.getItem("token")}`,
-};
-
 const getToken = () => {
   try {
     return JSON.parse(localStorage.getItem("auth")).token;
   } catch (e) {
     return "";
   }
+};
+
+const headers = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  Authorization: `Bearer ${getToken()}`,
 };
 
 const instance = axios.create({
