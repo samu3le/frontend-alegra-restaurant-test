@@ -14,7 +14,7 @@ export default {
   [types.LIST_FETCH_SUCCESS](state, { data }) {
     state.list.fetchingData = false;
     state.list.errors = null;
-    state.list.data = data.warehouse;
+    state.list.data = data.ingredients;
   },
   [types.LIST_FETCH_FAILURE](state, { errors }) {
     state.list.fetchingData = false;
@@ -28,7 +28,7 @@ export default {
   [types.CREATE_FETCH_SUCCESS](state, { data }) {
     state.create.fetchingData = false;
     state.create.errors = null;
-    state.create.data = data.warehouse;
+    state.create.data = data.ingredients;
   },
   [types.CREATE_FETCH_FAILURE](state, { errors }) {
     state.create.fetchingData = false;
@@ -42,7 +42,7 @@ export default {
   [types.STATE_CHANGE_FETCH_SUCCESS](state, { data }) {
     state.create.fetchingData = false;
     state.create.errors = null;
-    state.create.data = data.warehouse;
+    state.create.data = data.ingredients;
   },
   [types.STATE_CHANGE_FETCH_FAILURE](state, { errors }) {
     state.create.fetchingData = false;
