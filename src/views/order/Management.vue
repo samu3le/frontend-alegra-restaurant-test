@@ -73,7 +73,7 @@
                     v-slot:custom="{ dataRow, dataField, dataFieldExact }"
                   >
                     <div v-if="dataField == 'owner'">
-                      <span>{{ dataRow.owner.nickname }}</span>
+                      <span>{{ dataRow.owner.email }}</span>
                     </div>
                     <div v-else-if="dataField == 'actions'">
                       <div class="btn-group" role="group" aria-label="">

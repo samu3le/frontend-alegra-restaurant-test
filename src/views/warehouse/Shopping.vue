@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col">
               <h4 class="card-title">
-                {{ name }}
+                {{ listData }}
               </h4>
               <span> Cantidad Disponible: {{ stock }} </span>
             </div>
@@ -55,26 +55,36 @@
                     },
                     {
                       label: 'Compra por',
-                      field: 'name',
-                      type: 'text',
+                      field: 'owner',
+                      type: 'custom',
                       limit: 10,
                     },
                     {
                       label: 'Cantidad Compra',
-                      field: 'stock',
+                      field: 'quantity',
                       type: 'text',
                       limit: 10,
                     },
                     {
                       label: 'Creado en',
                       field: 'created_at',
-                      type: 'datetime-ago',
+                      type: 'datetime',
                     },
                   ]"
                   :list="listData.data"
                   :per_page="listParams.per_page"
                   @update="updateList"
                 >
+                  <template
+                    v-slot:custom="{ dataRow, dataField, dataFieldExact }"
+                  >
+                    <div v-if="dataField == 'owner'">
+                      <span>{{ dataRow.owner.email }}</span>
+                    </div>
+                    <div v-else>
+                      {{ dataFieldExact }}
+                    </div>
+                  </template>
                 </TableCustom>
                 <PaginationCustom
                   :page="listData.page"
@@ -148,6 +158,7 @@ export default {
       updateList,
       getList,
       modalEvent,
+      getShoppingList,
     };
   },
 };

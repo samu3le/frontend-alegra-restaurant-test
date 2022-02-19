@@ -12,6 +12,7 @@ export default () => {
     ),
     listErrors: computed(() => store.getters[`${module}/listErrors`]),
     listData: computed(() => store.getters[`${module}/listData`]),
+    findData: computed(() => store.getters[`${module}/findData`]),
     getList: () => store.dispatch(`${module}/getList`),
 
     listParams: computed(() => store.getters[`${module}/listParams`]),
