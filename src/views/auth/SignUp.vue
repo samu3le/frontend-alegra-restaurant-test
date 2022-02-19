@@ -2,23 +2,35 @@
   <div class="container w-50 mt-5 rounded shadow">
     <div class="row align-items-stretch">
       <div class="col bg-white p-5 rounded-end">
-        <h4 class="fw-bold text-center py-5">Inicio de Sesion</h4>
+        <h4 class="fw-bold text-center py-5">Registrarse</h4>
         <div
           class="alert alert-danger"
           role="alert"
-          v-if="signInErrors"
-          v-html="signInErrors"
+          v-if="signUpErrors"
+          v-html="signUpErrors"
         ></div>
 
         <div class="mb-3">
           <InputText
             name="name"
             type="text"
-            label="Usuario (alias ó email)"
-            placeholder="samuel1996 ó samuel@gmail.com"
-            v-model.lazy="formValues.user"
-            :value="formValues.user"
-            :errors="formValuesErrors.user"
+            label="Alias"
+            placeholder="samuel1996"
+            v-model.lazy="formValues.nickname"
+            :value="formValues.nickname"
+            :errors="formValuesErrors.nickname"
+          />
+        </div>
+
+        <div class="mb-3">
+          <InputText
+            name="name"
+            type="text"
+            label="Email"
+            placeholder="samuel@gmail.com"
+            v-model.lazy="formValues.email"
+            :value="formValues.email"
+            :errors="formValuesErrors.email"
           />
         </div>
 
@@ -45,21 +57,44 @@
           </InputText>
         </div>
 
+        <div class="mb-3">
+          <InputText
+            name="name"
+            :type="formTypes.password"
+            label="Confirma la contraseña"
+            placeholder="********"
+            v-model.lazy="formValues.passwordConfirmation"
+            :value="formValues.passwordConfirmation"
+            :errors="formValuesErrors.passwordConfirmation"
+          >
+            <template v-slot:buttons>
+              <ButtonCustom
+                :classesNames="{
+                  btn_custom: 'btn btn-outline-info d-flex align-items-center gap-2',
+                }"
+                type="button"
+                icon="eye"
+                @click="passwordShow"
+              />
+            </template>
+          </InputText>
+        </div>
+
         <div class="d-grid">
           <ButtonCustom
             :classesNames="{
               btn_custom: 'btn btn-primary d-flex align-items-center gap-2',
             }"
             type="button"
-            text="Iniciar Sesion"
+            text="Registrase"
             icon="log-in"
-            :loading="signInFetchingData"
-            @click="signInEvent"
+            :loading="signUpFetchingData"
+            @click="signUpEvent"
           />
         </div>
         <div class="my-3">
-          <router-link to="register" class="dropdown-item">
-            Registrate
+          <router-link to="login" class="dropdown-item">
+            Ingresa aquí
           </router-link>
         </div>
       </div>
@@ -96,37 +131,46 @@ export default {
 
     const route = useRoute()
 
-    const {
-      signInFetchingData,
-      signInErrors,
-      signInData,
+    const getRandomInt = (min, max) => {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
 
-      signIn,
+    const {
+      signUpFetchingData,
+      signUpErrors,
+      signUpData,
+
+      signUp,
     } = useAuth();
 
     const schemaCreate = yup.object().shape({
-      user: yup.string().required().min(2).max(25),
+      nickname: yup.string().required().min(2).max(25),
+      email: yup.string().email().required().min(2).max(25),
       password: yup.string().required().min(2).max(25),
-      remember_me: yup.boolean(),
+      passwordConfirmation: yup.string().required().min(2).max(25).oneOf([yup.ref('password')]),
     });
 
+    const randomInt = getRandomInt(1, 999999);
+
     let formValues = reactive({
-      user: "admin",
+      nickname: `user${randomInt}`,
+      email: `user${randomInt}@mail.com`,
       password: "12345678",
-      remember_me: false,
+      passwordConfirmation: "12345678",
     });
 
     const formValuesErrors = ref({});
 
-    const signInEvent = async () => {
+    const signUpEvent = async () => {
       try {
         await schemaCreate.validate(formValues, { abortEarly: false });
         for (const key in formValuesErrors.value) {
           formValuesErrors.value[key] = [];
         }
         try {
-          await signIn(formValues);
+          await signUp(formValues);
         } catch (err) {
+          console.error("signUpEvent -> catch", err);
           if (err?.errors) {
             for (const key in formValuesErrors.value) {
               formValuesErrors.value[key] = [];
@@ -139,7 +183,7 @@ export default {
           }
         }
       } catch (err) {
-        console.log("signInEvent -> catch", err);
+        console.error("signUpEvent -> catch", err);
         formValuesErrors.value = getErrorsFromYup({
           arr: formValuesErrors.value,
           err,
@@ -158,10 +202,10 @@ export default {
       formValues,
       formValuesErrors,
 
-      signInEvent,
+      signUpEvent,
 
-      signInFetchingData,
-      signInErrors,
+      signUpFetchingData,
+      signUpErrors,
 
       passwordShow,
       formTypes,
