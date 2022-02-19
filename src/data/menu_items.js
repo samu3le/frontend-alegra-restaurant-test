@@ -6,7 +6,7 @@ export default [
     component: "auth/SignIn",
     // divider: true,
     isActive: true,
-    // hiddenInTheSidebar: true,
+    hiddenInTheSidebar: true,
   },
   {
     name: "Ingredients",
@@ -15,6 +15,7 @@ export default [
     component: "ingredient/Management",
     // divider: true,
     isActive: true,
+    requiresAuth: true,
     // hiddenInTheSidebar: true,
   },
   {
@@ -24,6 +25,7 @@ export default [
     component: "product/Management",
     // divider: true,
     isActive: true,
+    requiresAuth: true,
     // hiddenInTheSidebar: true,
   },
   {
@@ -33,6 +35,7 @@ export default [
     component: "order/Management",
     // divider: true,
     isActive: true,
+    requiresAuth: true,
     // hiddenInTheSidebar: true,
   },
 ];

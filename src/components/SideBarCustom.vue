@@ -36,16 +36,22 @@
 <script>
 import { useRoute } from "vue-router";
 import { computed } from "vue";
+
 import useConfig from "@/composables/useConfig";
+import useAuth from "@/composables/useAuth";
 
 export default {
   name: "SideBarCustom",
   setup(props, ctx) {
+
+    const {
+        auth,
+        signOut,
+    } = useAuth();
+    
     const route = useRoute();
 
     const path = computed(() => route.path);
-
-    console.log("path", path);
 
     const {
       getMenuItems: menu,
@@ -62,6 +68,7 @@ export default {
       isOpenNavBarChange,
       isOpenSideBar,
       isOpenNavBar,
+      auth,
     };
   },
 };

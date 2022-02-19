@@ -13,7 +13,6 @@ const getToken = () => {
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  Authorization: `Bearer ${getToken()}`,
 };
 
 const instance = axios.create({
@@ -54,7 +53,6 @@ instance.interceptors.response.use(
 
 export default {
   get({ url, params }) {
-    console.log("endpoint -> get -> params", params);
     instance.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
     return instance.get(url, {
       params: {
@@ -63,7 +61,6 @@ export default {
     });
   },
   post({ url, params }) {
-    console.log("endpoint -> post -> params", params);
     instance.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
     return instance.post(url, params);
   },

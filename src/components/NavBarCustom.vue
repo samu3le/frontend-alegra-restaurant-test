@@ -60,9 +60,14 @@
               </svg>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Sign Out</a></li>
+              <li class="dropdown-item" v-if="!auth">
+                <router-link to="login" class="dropdown-item">
+                  Sign In
+                </router-link>
+              </li>
+              <li class="dropdown-item" v-else>
+                <a class="dropdown-item" href="#" @click="signOut">Sign Out</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -73,7 +78,9 @@
 </template>
 
 <script>
+
 import useConfig from "@/composables/useConfig";
+import useAuth from "@/composables/useAuth";
 
 export default {
   name: "NavBarCustom",
@@ -85,11 +92,18 @@ export default {
       isOpenNavBar,
     } = useConfig();
 
+    const {
+        auth,
+        signOut,
+    } = useAuth();
+
     return {
       isOpenSideBarChange,
       isOpenNavBarChange,
       isOpenSideBar,
       isOpenNavBar,
+      auth,
+      signOut,
     };
   },
 };
