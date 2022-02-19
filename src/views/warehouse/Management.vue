@@ -15,16 +15,6 @@
                       'btn btn-outline-primary d-flex align-items-center gap-2',
                   }"
                   type="button"
-                  text="Nuevo"
-                  icon="plus"
-                  @click="modalEvent"
-                />
-                <ButtonCustom
-                  :classesNames="{
-                    btn_custom:
-                      'btn btn-outline-primary d-flex align-items-center gap-2',
-                  }"
-                  type="button"
                   text="Actualizar"
                   icon="rotate-cw"
                   :loading="listFetchingData"
@@ -88,7 +78,7 @@
                     <div v-if="dataField == 'no_stock'">
                       <!-- <template v-if="dataFieldExact == true"> -->
                       <button
-                        v-on:click="modalEventUpdate(dataRow)"
+                        v-on:click="EventBuy(dataRow)"
                         class="btn btn-outline-primary"
                       >
                         <svg
@@ -154,8 +144,6 @@
         </div>
       </div>
     </div>
-    <Create ref="modal_create" @finish_success="getList" />
-    <!-- <Edit ref="modal_edit" @finish_success="getList" /> -->
   </div>
 </template>
 
@@ -165,7 +153,9 @@ import { ref, onBeforeMount } from "vue";
 import TableCustom from "@/components/Table.vue";
 import ButtonCustom from "@/components/Button.vue";
 import PaginationCustom from "@/components/Pagination.vue";
-import Create from "./Create.vue";
+
+import { useRouter, useRoute } from "vue-router";
+import router from "@/router";
 
 import useWarehouse from "@/composables/useWarehouse";
 
@@ -175,8 +165,7 @@ export default {
     TableCustom,
     ButtonCustom,
     PaginationCustom,
-    Create,
-    // Edit,
+    
   },
   setup() {
     const {
@@ -188,6 +177,8 @@ export default {
       getList,
       setStateChange,
     } = useWarehouse();
+
+    const route = useRoute();
 
     onBeforeMount(() => {
       setParams({
@@ -211,14 +202,8 @@ export default {
       setStateChange({ id, active }).then(getList);
     };
 
-    const modal_create = ref(null);
-    const modalEvent = () => {
-      modal_create.value.open();
-    };
-
-    const modal_edit = ref(null);
-    const modalEventUpdate = ({ id: idData }) => {
-      // modal_edit.value.open({ idData });
+    const EventBuy = ({ id: idData }) => {
+      router.push({ name: "shopping" });
     };
 
     return {
@@ -228,9 +213,7 @@ export default {
       listParams,
       updateList,
       getList,
-      modalEvent,
-      modal_create,
-      modal_edit,
+      EventBuy,
       state_change,
     };
   },

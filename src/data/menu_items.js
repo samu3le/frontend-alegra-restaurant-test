@@ -34,4 +34,12 @@ export default [
     component: "warehouse/Management",
     isActive: true,
   },
+  {
+    name: "shopping",
+    path: "/shopping",
+    text: "Bodega",
+    component: "warehouse/Shopping",
+    isActive: true,
+    hiddenInTheSidebar: true,
+  },
 ];
