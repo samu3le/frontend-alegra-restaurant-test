@@ -8,6 +8,15 @@ export default [
     hiddenInTheSidebar: true,
   },
   {
+    name: "Register",
+    path: "/register",
+    text: "Register",
+    component: "auth/SignUp",
+    // divider: true,
+    isActive: true,
+    hiddenInTheSidebar: true,
+  },
+  {
     name: "Ingredients",
     path: "/ingredients",
     text: "Ingredientes",
