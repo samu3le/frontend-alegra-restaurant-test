@@ -8,7 +8,7 @@ export default {
     );
     if (!!auth) {
       items = items.filter((item) =>
-        item.roles ? item.roles.includes(auth.role) : true
+        item?.roles ? item.roles.includes(auth.role) : true
       );
     }
     return items;

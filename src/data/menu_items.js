@@ -6,7 +6,6 @@ export default [
     component: "auth/SignIn",
     isActive: true,
     hiddenInTheSidebar: true,
-    role: false,
   },
   {
     name: "Register",
@@ -16,7 +15,6 @@ export default [
     // divider: true,
     isActive: true,
     hiddenInTheSidebar: true,
-    role: false,
   },
   {
     name: "Ingredients",
