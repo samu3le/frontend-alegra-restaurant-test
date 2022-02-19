@@ -203,7 +203,7 @@ export default {
 
     const EventBuy = (data) => {
       console.log(data, "data recibida para enviar");
-      const { id } = data;
+      const { id, name, stock } = data;
       router.push({
         name: "shopping",
         query: {

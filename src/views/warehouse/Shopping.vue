@@ -5,7 +5,10 @@
         <div class="card-header">
           <div class="row">
             <div class="col">
-              <h4 class="card-title">Tomato</h4>
+              <h4 class="card-title">
+                {{ name }}
+              </h4>
+              <span> Cantidad Disponible: {{ stock }} </span>
             </div>
             <div class="col">
               <div class="d-flex justify-content-end gap-2">
@@ -34,7 +37,7 @@
                   text="Actualizar"
                   icon="rotate-cw"
                   :loading="listFetchingData"
-                  @click="getList"
+                  @click="getShoppingList"
                 />
               </div>
             </div>
@@ -132,7 +135,7 @@ export default {
         per_page,
         page,
       });
-      getList();
+      getShoppingList({ id });
     };
 
     const modalEvent = () => {};
