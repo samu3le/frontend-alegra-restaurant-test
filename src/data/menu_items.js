@@ -1,7 +1,7 @@
 export default [
   {
     name: "Login",
-    path: "/auth",
+    path: "/login",
     text: "Login",
     component: "auth/SignIn",
     isActive: true,

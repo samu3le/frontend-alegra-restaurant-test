@@ -1,60 +1,158 @@
 <template>
-  <h1 class="fw-bold p-4 text-center">Alegra Restaurant</h1>
-  <div class="container w-75 mt-5 rounded shadow">
+  <div class="container w-50 mt-5 rounded shadow">
     <div class="row align-items-stretch">
-      <div
-        class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"
-      ></div>
       <div class="col bg-white p-5 rounded-end">
-        <div class="text-end d-lg-none">
-          <img src="@/assets/logo.svg" width="48" alt="" />
-        </div>
         <h4 class="fw-bold text-center py-5">Inicio de Sesion</h4>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          v-if="signInErrors"
+          v-html="signInErrors"
+        ></div>
 
-        <form action="#">
-          <div class="mb-4">
-            <label for="nickname" class="form">Nombre de usuario</label>
-            <input type="text" class="form-control" name="nickname" />
-          </div>
-          <div class="mb-4">
-            <label for="password" class="form">Contraseña</label>
-            <input type="password" class="form-control" name="password" />
-          </div>
-          <div class="mb-4 form-check">
-            <input
-              type="checkbox"
-              name="remember_me"
-              class="form-check-input"
-              id=""
-            />
-            <label for="remember_me" class="form-check-label"
-              >Mantenerme conectado</label
-            >
-          </div>
-          <div class="d-grid">
-            <button class="btn btn-primary">Iniciar Sesion</button>
-          </div>
-          <div class="my-3">
-            <span><a href="#">Registrate</a></span>
-          </div>
-        </form>
+        <div class="mb-3">
+          <InputText
+            name="name"
+            type="text"
+            label="Usuario (alias ó email)"
+            placeholder="samuel1996 ó samuel@gmail.com"
+            v-model.lazy="formValues.user"
+            :value="formValues.user"
+            :errors="formValuesErrors.user"
+          />
+        </div>
+
+        <div class="mb-3">
+          <InputText
+            name="name"
+            type="password"
+            label="Contraseña"
+            placeholder="********"
+            v-model.lazy="formValues.password"
+            :value="formValues.password"
+            :errors="formValuesErrors.password"
+          />
+        </div>
+
+        <div class="d-grid">
+          <ButtonCustom
+            :classesNames="{
+              btn_custom: 'btn btn-primary d-flex align-items-center gap-2',
+            }"
+            type="button"
+            text="Iniciar Sesion"
+            icon="log-in"
+            :loading="signInFetchingData"
+            @click="signInEvent"
+          />
+        </div>
+        <div class="my-3">
+          <span><a href="#">Registrate</a></span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import { ref, reactive } from "vue";
+
+import * as yup from "yup";
+
+import { useRouter, useRoute } from 'vue-router'
+
+import router from '@/router'
+
+import Modal from "@/components/Modal.vue";
+import ButtonCustom from "@/components/Button.vue";
+import InputText from "@/components/InputText.vue";
+
+import useAuth from "@/composables/useAuth";
+
+import { getErrorsFromYup } from "@/helpers";
+
+export const props = {};
+
+export default {
+  components: {
+    Modal,
+    ButtonCustom,
+    InputText,
+  },
+  setup(props, ) {
+
+    const route = useRoute()
+
+    const {
+      signInFetchingData,
+      signInErrors,
+      signInData,
+
+      signIn,
+    } = useAuth();
+
+    const schemaCreate = yup.object().shape({
+      user: yup.string().required().min(2).max(25),
+      password: yup.string().required().min(2).max(25),
+      remember_me: yup.boolean(),
+    });
+
+    let formValues = reactive({
+      user: "admin",
+      password: "12345678",
+      remember_me: false,
+    });
+
+    const formValuesErrors = ref({});
+
+    const signInEvent = async () => {
+      console.log("signInEvent");
+      try {
+        await schemaCreate.validate(formValues, { abortEarly: false });
+        for (const key in formValuesErrors.value) {
+          formValuesErrors.value[key] = [];
+        }
+        try {
+          await signIn(formValues);
+          console.log("signInData", signInData);
+          router.push({ name: 'Home' })
+        } catch (err) {
+          if (err?.errors) {
+            for (const key in formValuesErrors.value) {
+              formValuesErrors.value[key] = [];
+            }
+
+            const { errors } = err;
+            for (const error in errors) {
+              formValuesErrors.value[error] = err.errors[error];
+            }
+          }
+        }
+      } catch (err) {
+        console.log("signInEvent -> catch", err);
+        formValuesErrors.value = getErrorsFromYup({
+          arr: formValuesErrors.value,
+          err,
+        });
+      }
+    };
+
+    return {
+      formValues,
+      formValuesErrors,
+
+      signInEvent,
+
+      signInFetchingData,
+      signInErrors,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .container {
   background: #7386d5;
   background: linear-gradient(to right, #6d7fcc, #cdc6f0);
-}
-.bg {
-  background-image: url("../../assets/restaurant.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  filter: brightness(-100%);
 }
 </style>
