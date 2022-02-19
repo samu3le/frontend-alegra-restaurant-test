@@ -6,7 +6,7 @@ export default {
         let items = state.menu.items
             .filter(({ requiresAuth }) => requiresAuth == !!auth);
         if ( !!auth ) {
-            items = items.filter(item => item.roles.includes(auth.role));
+            items = items.filter(item => item?.roles ? item.roles.includes(auth.role) : true);
         }
         return items;
     },

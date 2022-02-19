@@ -47,7 +47,7 @@
             {{ auth.nickname }}
           </template>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownAuth">
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAuth">
           <li class="dropdown-item" v-if="!auth">
             <router-link to="login" class="dropdown-item">
               Sign In
