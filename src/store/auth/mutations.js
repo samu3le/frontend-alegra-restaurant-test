@@ -6,14 +6,14 @@ export default {
     state.signIn.errors = null;
   },
   [types.SIGN_IN_FETCH_SUCCESS](state, {
-    data:user,
+    data,
   }) {
     state.signIn.fetchingData = false;
     state.signIn.errors = null;
-    state.signIn.data = user;
+    state.signIn.data = data.user;
 
-    state.auth = user;
-    window.localStorage.setItem("auth", JSON.stringify(user));
+    state.auth = data.user
+    window.localStorage.setItem("auth", JSON.stringify(data.user));
   },
   [types.SIGN_IN_FETCH_FAILURE](state, { errors }) {
     state.signIn.fetchingData = false;
