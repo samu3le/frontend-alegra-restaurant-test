@@ -31,6 +31,7 @@ export default [
     text: "Pedidos",
     component: "order/Management",
     isActive: true,
+    requiresAuth: true,
   },
   {
     name: "Warehouse",

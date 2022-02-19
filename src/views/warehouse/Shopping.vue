@@ -87,17 +87,17 @@
         </div>
       </div>
     </div>
-    <Buy ref="data_buy" @finish_success="getList" />
   </div>
 </template>
 
 <script>
 import { ref, onBeforeMount } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 import TableCustom from "@/components/Table.vue";
 import ButtonCustom from "@/components/Button.vue";
 import PaginationCustom from "@/components/Pagination.vue";
-import Buy from "./Buy.vue";
+
 import useWarehouse from "@/composables/useWarehouse";
 
 export default {
@@ -106,9 +106,10 @@ export default {
     TableCustom,
     ButtonCustom,
     PaginationCustom,
-    Buy,
   },
-  setup() {
+  setup(props) {
+    const route = useRoute();
+
     const {
       listFetchingData,
       listErrors,
@@ -116,11 +117,14 @@ export default {
       listParams,
       setParams,
       getList,
+      getShoppingList,
+      buy,
     } = useWarehouse();
 
+    const { id } = route.query;
+
     onBeforeMount(() => {
-      getList();
-      console.log(getList());
+      getShoppingList({ id });
     });
 
     const updateList = ({ per_page, page }) => {
@@ -131,10 +135,7 @@ export default {
       getList();
     };
 
-    const data_buy = ref(null);
-    const modalEvent = () => {
-      data_buy.value.open();
-    };
+    const modalEvent = () => {};
 
     return {
       listFetchingData,
@@ -144,7 +145,6 @@ export default {
       updateList,
       getList,
       modalEvent,
-      data_buy,
     };
   },
 };

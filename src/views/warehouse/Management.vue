@@ -165,7 +165,6 @@ export default {
     TableCustom,
     ButtonCustom,
     PaginationCustom,
-    
   },
   setup() {
     const {
@@ -202,8 +201,15 @@ export default {
       setStateChange({ id, active }).then(getList);
     };
 
-    const EventBuy = ({ id: idData }) => {
-      router.push({ name: "shopping" });
+    const EventBuy = (data) => {
+      console.log(data, "data recibida para enviar");
+      const { id } = data;
+      router.push({
+        name: "shopping",
+        query: {
+          id,
+        },
+      });
     };
 
     return {
