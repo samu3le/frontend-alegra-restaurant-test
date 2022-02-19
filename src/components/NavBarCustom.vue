@@ -65,6 +65,11 @@
                   Sign In
                 </router-link>
               </li>
+              <li class="dropdown-item" v-if="!auth">
+                <router-link to="register" class="dropdown-item">
+                  Sign Up
+                </router-link>
+              </li>
               <li class="dropdown-item" v-else>
                 <a class="dropdown-item" href="#" @click="signOut">Sign Out</a>
               </li>

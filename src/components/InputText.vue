@@ -21,7 +21,7 @@
                 :class="{
                     'd-none': !inputShow,
                 }"
-                >
+            >
                 <slot name="buttons"></slot>
             <div 
                 :class="[

@@ -23,6 +23,26 @@ export default {
     state.signIn.fetchingData = false;
     state.signIn.errors = errors;
   },
+  [types.SIGN_UP_FETCH_REQUEST](state) {
+    state.signIn.fetchingData = true;
+    state.signIn.errors = null;
+  },
+  [types.SIGN_UP_FETCH_SUCCESS](state, {
+    data,
+  }) {
+    state.signIn.fetchingData = false;
+    state.signIn.errors = null;
+    state.signIn.data = data.user;
+
+    state.auth = data.user
+    window.localStorage.removeItem('auth')
+    window.localStorage.setItem("auth", JSON.stringify(data.user));
+    router.push({ name: 'Home' })
+  },
+  [types.SIGN_UP_FETCH_FAILURE](state, { errors }) {
+    state.signIn.fetchingData = false;
+    state.signIn.errors = errors;
+  },
   [types.AUTH_VERIFY](state) {
     state.auth = JSON.parse(window.localStorage.getItem("auth"))
   },
