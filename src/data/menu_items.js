@@ -7,6 +7,7 @@ export default [
     // divider: true,
     isActive: true,
     hiddenInTheSidebar: true,
+    role: false,
   },
   {
     name: "Register",
@@ -16,6 +17,7 @@ export default [
     // divider: true,
     isActive: true,
     hiddenInTheSidebar: true,
+    role: false,
   },
   {
     name: "Ingredients",
@@ -26,6 +28,7 @@ export default [
     isActive: true,
     requiresAuth: true,
     // hiddenInTheSidebar: true,
+    roles: ["kitchen", "manager"],
   },
   {
     name: "Products",
@@ -36,6 +39,7 @@ export default [
     isActive: true,
     requiresAuth: true,
     // hiddenInTheSidebar: true,
+    roles: ["warehouse", "manager"],
   },
   {
     name: "Orders",
@@ -46,5 +50,14 @@ export default [
     isActive: true,
     requiresAuth: true,
     // hiddenInTheSidebar: true,
+    roles: ["kitchen", "manager"],
   },
 ];
+
+/**
+ * @typedef {Object} Roles
+ * @property {string} manager
+ * @property {string} kitchen
+ * @property {string} warehouse
+ * @property {string} guest
+ */

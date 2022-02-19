@@ -64,5 +64,10 @@ export default {
   [types.SIGN_OUT_FETCH_FAILURE](state, { errors }) {
     state.signOut.fetchingData = false;
     state.signOut.errors = errors;
+    state.signOut.data = null;
+
+    state.auth = null
+    window.localStorage.removeItem('auth')
+    router.push({ name: 'Home' })
   },
 };
