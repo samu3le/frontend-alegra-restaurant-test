@@ -1,6 +1,9 @@
+import store from "@/store";
+
 export default {
     getMenuItems( state, ) {
-        return state.menu.items
+        const auth = !!store.getters['auth/auth'];
+        return state.menu.items.filter(({ requiresAuth }) => requiresAuth == auth)
     },
     isOpenSideBar( state, ) {
         return state.isOpenSideBar

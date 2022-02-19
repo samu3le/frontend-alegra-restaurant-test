@@ -8,4 +8,7 @@ export default {
   signInData(state) {
     return state.signIn.data;
   },
+  auth(state) {
+    return state.auth;
+  },
 };

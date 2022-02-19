@@ -73,8 +73,6 @@
 
 import { Modal } from 'bootstrap'
 
-console.log(Modal)
-
 export const props = {
     custom: {
         type: Object,
@@ -177,11 +175,6 @@ export default {
         
         this.modal = new Modal(element, {})
         element.addEventListener('hidden.bs.modal', (event) => {
-            console.log('hidden.bs.modal', event)
-            // const overlay = this.$refs.overlay
-            // overlay.style.display = 'none'
-            // this.destroy()
-            // this.modal.hide();
             this.$emit('close');
         })
         element.addEventListener('shown.bs.modal', (event) => {

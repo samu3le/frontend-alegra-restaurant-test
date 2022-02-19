@@ -12,6 +12,10 @@ export default () => {
         signInErrors: computed(() => store.getters[`${module}/signInErrors`] ),
         signInData: computed(() => store.getters[`${module}/signInData`] ),
 
+        auth: computed(() => store.getters[`${module}/auth`] ),
+
         signIn: ( e ) => store.dispatch(`${module}/signIn`, e ),
+        signOut: ( e ) => store.dispatch(`${module}/signOut`, e ),
+        verify: ( e ) => store.dispatch(`${module}/verify`, e ),
     }
 }

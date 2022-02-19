@@ -127,8 +127,6 @@ export default {
         watch(
             () => inputValue.value,
             (inputValue, prevInputValue) => {
-                console.log('inputValue',inputValue)
-                console.log('props.type',props.type)
                 if(props.type == 'range'){
                     ctx.emit("update:modelValue", moment(inputValue).startOf('minute').format('YYYY-MM-DD HH:mm'));
                     ctx.emit("change", {
