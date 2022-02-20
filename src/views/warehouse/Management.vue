@@ -142,6 +142,8 @@
                           : dataRow.stock - dataRow.requested_quantity >
                             dataRow.requested_quantity
                           ? "0"
+                          : dataRow.stock > dataRow.requested_quantity
+                          ? "0"
                           : dataRow.stock - dataRow.requested_quantity
                       }}
                     </div>
