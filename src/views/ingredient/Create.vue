@@ -26,7 +26,7 @@
           type="text"
           label="Nombre"
           placeholder=""
-          v-model.trim.lazy="formValues.name"
+          v-model.lazy="formValues.name"
           :value="formValues.name"
           :errors="formValuesErrors.name"
         />
@@ -37,20 +37,9 @@
           type="text"
           label="Llave"
           placeholder=""
-          v-model.trim.lazy="formValues.key"
+          v-model.lazy="formValues.key"
           :value="formValues.key"
           :errors="formValuesErrors.key"
-        />
-      </div>
-      <div class="mb-3">
-        <InputText
-          name="stock"
-          type="number"
-          label="Cantidad"
-          placeholder=""
-          v-model.trim.lazy="formValues.stock"
-          :value="formValues.stock"
-          :errors="formValuesErrors.stock"
         />
       </div>
       <div class="mb-3">
@@ -60,9 +49,8 @@
           label="Imagen"
           accept="image/png, image/jpeg"
           placeholder=""
-          v-model.trim.lazy="formValues.image"
-          :value="formValues.image"
           :errors="formValuesErrors.image"
+          @change="fileChange"
         />
       </div>
     </template>
@@ -123,7 +111,6 @@ export default {
     const schemaCreate = yup.object().shape({
       name: yup.string().required().min(2).max(25),
       key: yup.string().required().min(2).max(25),
-      stock: yup.number().required().min(5),
       // is_active: yup.boolean(),
     });
 
@@ -151,9 +138,16 @@ export default {
       }
     };
 
-    const createEvent = async () => {
-      console.log("createEvent");
+    const fileChange = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        formValues.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
 
+    const createEvent = async () => {
       try {
         await schemaCreate.validate(formValues, { abortEarly: false });
         for (const key in formValuesErrors.value) {
@@ -195,6 +189,8 @@ export default {
       createFetchingData,
 
       createEvent,
+
+      fileChange,
     };
   },
 };

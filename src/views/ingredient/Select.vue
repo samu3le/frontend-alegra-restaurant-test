@@ -5,7 +5,7 @@
         <label :for="name" class="form-label">{{ label || 'Ingredients'  }}</label>
         <div class="input-group mb-3">
             <v-select
-                :options="listData.list"
+                :options="listData.data"
                 :filterable="false"
 
                 :style="{
@@ -52,48 +52,12 @@
                 </template>
 
                 <template v-slot:option="item">
-                    Placa: {{ item.plate }}
-                    <br>
-                    Color: <span 
-                        :style="{
-                            height: '25px',
-                            width: '25px',
-                            'background-color': item.color,
-                            borderRadius: '50%',
-                            display: 'inline-block',
-                        }"
-                    ></span>
-                    <br>
-                    Marca: {{ item.brand }}
-                    <br>
-                    Modelo: {{ item.model }}
-                    <br>
-                    Serial: {{ item.serial }}
-                    <br>
-                    Año: {{ item.year }}
+                    Nombre: {{ item?.name || '' }}
                 </template>
 
                 <template v-slot:selected-option="item">
                     <div class="selected d-center">
-                        Placa: {{ item.plate.substring(0,20) }}
-                        <br>
-                        Color: <span 
-                            :style="{
-                                height: '25px',
-                                width: '25px',
-                                'background-color': item.color,
-                                borderRadius: '50%',
-                                display: 'inline-block',
-                            }"
-                        ></span>
-                        <br>
-                        Marca: {{ item.brand.substring(0,20) }}
-                        <br>
-                        Modelo: {{ item.model.substring(0,20) }}
-                        <br>
-                        Serial: {{ item.serial.substring(0,20) }}
-                        <br>
-                        Año: {{ item.year }}
+                        Nombre: {{ item?.name || '' }}
                     </div>
                 </template>
 
@@ -145,7 +109,7 @@ export default {
             default: "select",
         },
         value: {
-            type: [String, Number],
+            type: [Object],
             default: "",
         },
         name: {
@@ -191,13 +155,6 @@ export default {
 
         const inputValue = ref(value)
 
-        watch(
-            () => inputValue.value,
-            (inputValue, prevInputValue) => {
-                console.log('inputValue',inputValue)
-            }
-        )
-
         const infiniteScroll = async ([{ isIntersecting, target }]) => {
             if (isIntersecting) {
                 const ul = target.offsetParent
@@ -210,14 +167,14 @@ export default {
                     per_page: limit.value,
                     page: 1,
                     search,
-                    sort_by: 'plate',
+                    sort_by: 'created_at',
                     sort: 'asc',
                     unique_in_drivers: true,
                 }) : setParams({
                     per_page: limit.value,
                     page: 1,
                     search,
-                    sort_by: 'plate',
+                    sort_by: 'created_at',
                     sort: 'asc',
                 })
                 getList()
@@ -229,13 +186,13 @@ export default {
                 per_page: limit.value,
                 page: 1,
                 search,
-                sort_by: 'plate',
+                sort_by: 'created_at',
                 sort: 'asc',
                 unique_in_drivers: true,
             }) : setParams({
                 per_page: limit.value,
                 page: 1,
-                sort_by: 'plate',
+                sort_by: 'created_at',
                 sort: 'asc',
                 search,
             })
@@ -260,7 +217,8 @@ export default {
         }
 
         const reset = () => {
-            inputValue.value = ''
+            console.log('reset')
+            inputValue.value = {};
         }
 
         const hasNextPage = computed(() => {
@@ -268,20 +226,18 @@ export default {
         })
 
         const fetch = async (e) => {
-            console.log('e',e)
-
             unique_in_drivers.value ? setParams({
                 per_page: limit.value,
                 page: 1,
                 search: e,
-                sort_by: 'plate',
+                sort_by: 'created_at',
                 sort: 'asc',
                 unique_in_drivers: true,
             }) : setParams({
                 per_page: limit.value,
                 page: 1,
                 search: e,
-                sort_by: 'plate',
+                sort_by: 'created_at',
                 sort: 'asc',
             })
 
@@ -311,8 +267,7 @@ export default {
                     }
                 }
             }else{
-                console.log("update:modelValue")
-                ctx.emit("update:modelValue", e.id);
+                ctx.emit("update:modelValue", e);
                 ctx.emit("change", e);
             }
         };

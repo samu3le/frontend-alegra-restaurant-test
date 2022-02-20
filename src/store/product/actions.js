@@ -27,8 +27,17 @@ export default {
         return Promise.reject(err);
       });
   },
-  create({ commit }, { name, image }) {
+  create({ commit }, { 
+    name,
+    image,
+    ingredients,
+  }) {
     commit(types.CREATE_FETCH_REQUEST);
+
+    const ingredientsToObject = {};
+    for(const ingredient of ingredients){
+      ingredientsToObject[ingredient.id] = ingredient.quantity
+    }
 
     return endpoint
       .post({
@@ -36,6 +45,7 @@ export default {
         params: {
           name,
           image,
+          ingredients: ingredientsToObject,
         },
       })
       .then(({ data }) => {
