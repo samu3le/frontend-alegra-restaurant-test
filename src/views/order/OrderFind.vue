@@ -26,8 +26,26 @@
           <span>{{ data.created_at }}</span>
         </div>
       </div>
-      <ul v-if="data?.details?.length">
-        <li>{{ data.quantity }}: platos</li>
+      <ul>
+        <div v-for="item in data.details" :key="item.id">
+          <li v-if="item?.product?.name">
+            {{ item.product.name }}: {{ item.quantity }} platos {{
+            }}<span
+              :class="[
+                item.state == 1
+                  ? 'btn-danger'
+                  : item.state == 2
+                  ? 'btn-warning'
+                  : item.state == 3
+                  ? 'btn-info'
+                  : item.state == 4
+                  ? 'btn-success'
+                  : null,
+              ]"
+              >{{ state[item.state] }}</span
+            >
+          </li>
+        </div>
       </ul>
     </template>
   </modal>
@@ -57,10 +75,18 @@ export default {
       modal.value.open({});
     };
 
+    const state = {
+      1: "Creado",
+      2: "Solicitado",
+      3: "Preparacion",
+      4: "Preparado",
+    };
+
     return {
       modal,
       open,
       data,
+      state,
     };
   },
 };
