@@ -28,8 +28,8 @@ export default {
       });
   },
   buy({ commit }, { id }) {
-    commit(types.CREATE_FETCH_REQUEST);
-
+    commit(types.BUY_FETCH_REQUEST);
+    console.error(id, "en actions");
     return endpoint
       .post({
         url: `${types.route}/buy`,
@@ -38,12 +38,12 @@ export default {
         },
       })
       .then(({ data }) => {
-        commit(types.CREATE_FETCH_SUCCESS, data);
+        commit(types.BUY_FETCH_SUCCESS, data);
         return data;
       })
       .catch((err) => {
         console.log("err", err);
-        commit(types.CREATE_FETCH_FAILURE, { err: err.errors });
+        commit(types.BUY_FETCH_FAILURE, { err: err.errors });
         return Promise.reject(err);
       });
   },

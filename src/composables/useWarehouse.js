@@ -18,10 +18,8 @@ export default () => {
     listParams: computed(() => store.getters[`${module}/listParams`]),
     setParams: (e) => store.dispatch(`${module}/setParams`, e),
 
-    createFetchingData: computed(
-      () => store.getters[`${module}/createFetchingData`]
-    ),
-    createErrors: computed(() => store.getters[`${module}/createErrors`]),
+    buyFetchingData: computed(() => store.getters[`${module}/buyFetchingData`]),
+    buyErrors: computed(() => store.getters[`${module}/buyErrors`]),
     buy: () => store.dispatch(`${module}/buy`),
 
     getShoppingList: (e) => store.dispatch(`${module}/getShoppingList`, e),

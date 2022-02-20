@@ -18,9 +18,9 @@ export default {
     state.list.errors = null;
     state.list.data = data.ingredients ?? data.shoppings;
 
-    if(data.ingredient){
+    if (data.ingredient) {
       console.log("data.ingredient", data.ingredient);
-      store.dispatch('ingredient/setData', data.ingredient );
+      store.dispatch("ingredient/setData", data.ingredient);
     }
   },
   [types.LIST_FETCH_FAILURE](state, { errors }) {
@@ -28,18 +28,18 @@ export default {
     state.list.errors = errors;
   },
 
-  [types.CREATE_FETCH_REQUEST](state) {
-    state.create.fetchingData = true;
-    state.create.errors = null;
+  [types.BUY_FETCH_REQUEST](state) {
+    state.buy.fetchingData = true;
+    state.buy.errors = null;
   },
-  [types.CREATE_FETCH_SUCCESS](state, { data }) {
-    state.create.fetchingData = false;
-    state.create.errors = null;
-    state.create.data = data.ingredient;
+  [types.BUY_FETCH_SUCCESS](state, { data }) {
+    state.buy.fetchingData = false;
+    state.buy.errors = null;
+    state.buy.data = data.ingredient;
   },
-  [types.CREATE_FETCH_FAILURE](state, { errors }) {
-    state.create.fetchingData = false;
-    state.create.errors = errors;
+  [types.BUY_FETCH_FAILURE](state, { errors }) {
+    state.buy.fetchingData = false;
+    state.buy.errors = errors;
   },
 
   [types.STATE_CHANGE_FETCH_REQUEST](state) {

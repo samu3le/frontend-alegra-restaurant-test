@@ -2,7 +2,7 @@ export default {
   fetchingData: false,
   errors: null,
   data: {},
-  create: {
+  buy: {
     fetchingData: false,
     message: null,
     errors: {
