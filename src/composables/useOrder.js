@@ -7,15 +7,19 @@ export default () => {
   const store = useStore();
 
   return {
-    listFetchingData: computed(
-      () => store.getters[`${module}/listFetchingData`]
-    ),
+    listFetchingData: computed(() => store.getters[`${module}/listFetchingData`]),
     listErrors: computed(() => store.getters[`${module}/listErrors`]),
     listData: computed(() => store.getters[`${module}/listData`]),
     getList: () => store.dispatch(`${module}/getList`),
-
     listParams: computed(() => store.getters[`${module}/listParams`]),
     setParams: (e) => store.dispatch(`${module}/setParams`, e),
+
+    listStatesFetchingData: computed(() => store.getters[`${module}/listStatesFetchingData`]),
+    listStatesErrors: computed(() => store.getters[`${module}/listStatesErrors`]),
+    listStatesData: computed(() => store.getters[`${module}/listStatesData`]),
+    getListStates: () => store.dispatch(`${module}/getListStates`),
+    listStatesParams: computed(() => store.getters[`${module}/listStatesParams`]),
+    listStatesSetParams: (e) => store.dispatch(`${module}/listStatesSetParams`, e),
 
     createFetchingData: computed(
       () => store.getters[`${module}/createFetchingData`]

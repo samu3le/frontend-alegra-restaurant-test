@@ -28,4 +28,14 @@ export default {
   createErrors(state) {
     return state.create.message;
   },
+
+  listStatesFetchingData(state) {
+    return state.list_states.fetchingData;
+  },
+  listStatesErrors(state) {
+    return state.list_states.errors;
+  },
+  listStatesData(state) {
+    return state.list_states.data;
+  },
 };

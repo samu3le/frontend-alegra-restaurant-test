@@ -67,4 +67,25 @@ export default {
         return Promise.reject(err);
       });
   },
+  getListStates({ state, commit }) {
+    commit(types.LIST_STATES_FETCH_REQUEST);
+
+    return endpoint
+      .get({
+        url: `${types.route}/get_all_states`,
+        params: state.list_states.params,
+      })
+      .then(({ data }) => {
+        commit(types.LIST_STATES_FETCH_SUCCESS, data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("err", err);
+        commit(types.LIST_STATES_FETCH_FAILURE, { err: err.errors });
+        return Promise.reject(err);
+      });
+  },
+  listStatesSetParams({ commit }, params) {
+    commit(types.LIST_STATES_SET_PARAMS, params);
+  },
 };

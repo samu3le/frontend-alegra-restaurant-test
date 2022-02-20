@@ -15,16 +15,6 @@
                       'btn btn-outline-primary d-flex align-items-center gap-2',
                   }"
                   type="button"
-                  text="Nuevo"
-                  icon="plus"
-                  @click="modalEvent"
-                />
-                <ButtonCustom
-                  :classesNames="{
-                    btn_custom:
-                      'btn btn-outline-primary d-flex align-items-center gap-2',
-                  }"
-                  type="button"
                   text="Actualizar"
                   icon="rotate-cw"
                   :loading="listFetchingData"
@@ -37,7 +27,7 @@
         <div class="card-content collapse show">
           <div class="card-body">
             <!-- other card -->
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-start">
               <div
                 class="card m-3 text-dark bg-danger mb-3"
                 style="width: 18rem"
@@ -46,25 +36,47 @@
                   requested <span class="badge bg-light text-dark">4</span>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    pedido 1
-                    <div>
-                      <ul>
-                        <li>pizza 24</li>
-                        <li>arepa 12</li>
-                        <li>bebida 2</li>
-                      </ul>
+                  <li v-for="order in listData.data.requested.list" class="list-group-item" :key="order.id">
+                    <div class="d-flex justify-content-between">
+                      <span>
+                        <span class="badge bg-secondary">
+                          # {{ order.id }}
+                        </span>
+                      </span>
+                      <span>
+                        <span class="badge bg-secondary">
+                          Cant. {{ order.quantity }}
+                        </span>
+                      </span>
                     </div>
-                  </li>
-                  <li class="list-group-item">
-                    pedido 1
-                    <div>
-                      <ul>
-                        <li>pizza 24</li>
-                        <li>arepa 12</li>
-                        <li>bebida 2</li>
-                      </ul>
+                    <div class="d-flex justify-content-between">
+                      <span>
+                        Creado: {{ order.created_at }}
+                        Actualizado: {{ order.updated_at }}
+                      </span>
                     </div>
+                    <ul>
+                      <li v-for="detail in order.details" :key="detail.id" class="m-2">
+                        <div class="d-flex justify-content-between">
+                          <span>
+                            {{ detail.product.name }}
+                          </span>
+                          <div class="d-flex">
+                            <span class="badge bg-secondary d-flex align-items-center m-1">
+                              Cant. {{ detail.quantity }}
+                            </span>
+                            <ButtonCustom
+                              :classesNames="{
+                                btn_custom: 'btn btn-outline-dark d-flex align-items-center gap-2 btn-sm',
+                              }"
+                              type="button"
+                              text=""
+                              icon="arrow-right"
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -151,14 +163,14 @@ export default {
     // Edit,
   },
   setup() {
+
     const {
-      listFetchingData,
-      listErrors,
-      listData,
-      listParams,
-      setParams,
-      getList,
-      setStateChange,
+      listStatesFetchingData: listFetchingData,
+      listStatesErrors: listErrors,
+      listStatesData: listData,
+      getListStates: getList,
+      listStatesParams: listParams,
+      listStatesSetParams: setParams,
     } = useOrder();
 
     const state = {
@@ -185,10 +197,6 @@ export default {
       getList();
     };
 
-    const state_change = ({ id, active }) => {
-      setStateChange({ id, active }).then(getList);
-    };
-
     const modal_create = ref(null);
     const modalEvent = () => {
       modal_create.value.open();
@@ -209,7 +217,6 @@ export default {
       modalEvent,
       modal_create,
       modal_edit,
-      state_change,
       state,
     };
   },

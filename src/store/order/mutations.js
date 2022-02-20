@@ -63,4 +63,24 @@ export default {
     state.create.fetchingData = false;
     state.create.errors = errors;
   },
+
+  [types.LIST_STATES_FETCH_REQUEST](state) {
+    state.list_states.fetchingData = true;
+    state.list_states.errors = null;
+  },
+  [types.LIST_STATES_FETCH_SUCCESS](state, { data }) {
+    state.list_states.fetchingData = false;
+    state.list_states.errors = null;
+    state.list_states.data = data.orders;
+  },
+  [types.LIST_STATES_FETCH_FAILURE](state, { errors }) {
+    state.list_states.fetchingData = false;
+    state.list_states.errors = errors;
+  },
+  [types.LIST_STATES_SET_PARAMS](state, params) {
+    state.list_states.params = {
+      ...state.list_states.params,
+      ...params,
+    };
+  },
 };
