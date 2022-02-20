@@ -6,12 +6,13 @@
           <div class="row">
             <div class="col">
               <h4 class="card-title">
+                {{ getIngredientData.name }}
               </h4>
               <span> Cantidad Disponible: {{ getIngredientData.stock }} </span>
             </div>
             <div class="col">
               <div class="d-flex justify-content-end gap-2">
-                <button v-on:click="modalEvent" class="btn btn-outline-primary">
+                <button v-on:click="buyEvent" class="btn btn-outline-primary">
                   <svg
                     width="16"
                     height="16"
@@ -36,7 +37,7 @@
                   text="Actualizar"
                   icon="rotate-cw"
                   :loading="listFetchingData"
-                  @click="getShoppingList"
+                  @click="getListShop"
                 />
               </div>
             </div>
@@ -133,26 +134,31 @@ export default {
       getShoppingList,
       buy,
     } = useWarehouse();
-    
-    const {
-      getData: getIngredientData,
-    } = useIngredient();
+
+    const { getData: getIngredientData } = useIngredient();
 
     const { id } = route.query;
 
     onBeforeMount(() => {
-      getShoppingList({ id });
+      getListShop();
     });
+
+    const getListShop = () => {
+      getShoppingList({ id });
+    };
 
     const updateList = ({ per_page, page }) => {
       setParams({
         per_page,
         page,
       });
-      getShoppingList({ id });
+      getListShop();
     };
 
-    const modalEvent = () => {};
+    const buyEvent = () => {
+      buy({ id });
+      getListShop();
+    };
 
     return {
       listFetchingData,
@@ -161,9 +167,10 @@ export default {
       listParams,
       updateList,
       getList,
-      modalEvent,
+      buyEvent,
       getShoppingList,
       getIngredientData,
+      getListShop,
     };
   },
 };

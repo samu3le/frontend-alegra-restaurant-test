@@ -19,10 +19,10 @@ export default {
     return state.list.params;
   },
 
-  createFetchingData(state) {
-    return state.create.fetchingData;
+  buyFetchingData(state) {
+    return state.buy.fetchingData;
   },
-  createErrors(state) {
-    return state.create.message;
+  buyErrors(state) {
+    return state.buy.message;
   },
 };
