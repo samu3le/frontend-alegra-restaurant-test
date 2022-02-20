@@ -19,7 +19,6 @@ export default {
     state.list.data = data.ingredients ?? data.shoppings;
 
     if (data.ingredient) {
-      console.log("data.ingredient", data.ingredient);
       store.dispatch("ingredient/setData", data.ingredient);
     }
   },

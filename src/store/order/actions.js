@@ -47,24 +47,22 @@ export default {
         return Promise.reject(err);
       });
   },
-  state_change({ commit }, { id, active }) {
-    commit(types.STATE_CHANGE_FETCH_REQUEST);
+  async find({ commit }, id) {
+    console.log(id, "id find");
+    commit(types.FIND_FETCH_REQUEST);
 
     return endpoint
-      .post({
-        url: `${types.route}/state_change`,
-        params: {
-          id,
-          active: active ? 1 : 0,
-        },
+      .get({
+        url: `${types.route}/find`,
+        params: { id },
       })
       .then(({ data }) => {
-        commit(types.STATE_CHANGE_FETCH_SUCCESS, data);
+        commit(types.FIND_FETCH_SUCCESS, data);
         return data;
       })
       .catch((err) => {
         console.log("err", err);
-        commit(types.STATE_CHANGE_FETCH_FAILURE, { err: err.errors });
+        commit(types.LIST_FETCH_FAILURE, { err: err.errors });
         return Promise.reject(err);
       });
   },
