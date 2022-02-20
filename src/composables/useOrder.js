@@ -23,6 +23,8 @@ export default () => {
     createErrors: computed(() => store.getters[`${module}/createErrors`]),
     create: () => store.dispatch(`${module}/create`),
 
+    data: computed(() => store.getters[`${module}/data`]),
+
     findOne: (e) => store.dispatch(`${module}/find`, e),
     create: (e) => store.dispatch(`${module}/create`, e),
     setStateChange: (e) => store.dispatch(`${module}/state_change`, e),

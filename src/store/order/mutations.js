@@ -16,19 +16,24 @@ export default {
     state.list.errors = null;
     state.list.data = data.orders;
   },
-  [types.FIND_FETCH_SUCCESS](state, { data }) {
-    state.list.fetchingData = false;
-    state.list.errors = null;
-    state.list.data = data.order;
-  },
-  [types.FIND_FETCH_REQUEST](state, { data }) {
-    state.list.fetchingData = false;
-    state.list.errors = null;
-    state.list.data = data.order;
-  },
   [types.LIST_FETCH_FAILURE](state, { errors }) {
     state.list.fetchingData = false;
     state.list.errors = errors;
+  },
+
+  [types.FIND_FETCH_SUCCESS](state, { data }) {
+    state.fetchingData = false;
+    state.errors = null;
+    state.data = data.order;
+  },
+  [types.FIND_FETCH_REQUEST](state) {
+    state.fetchingData = true;
+    state.errors = null;
+    state.data = {};
+  },
+  [types.FIND_FETCH_FAILURE](state, { errors }) {
+    state.fetchingData = false;
+    state.errors = errors;
   },
 
   [types.CREATE_FETCH_REQUEST](state) {

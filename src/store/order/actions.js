@@ -47,8 +47,9 @@ export default {
         return Promise.reject(err);
       });
   },
-  async find({ commit }, id) {
-    console.log(id, "id find");
+  find({ commit }, 
+    { id }
+  ) {
     commit(types.FIND_FETCH_REQUEST);
 
     return endpoint
@@ -58,11 +59,11 @@ export default {
       })
       .then(({ data }) => {
         commit(types.FIND_FETCH_SUCCESS, data);
-        return data;
+        return {};
       })
       .catch((err) => {
         console.log("err", err);
-        commit(types.LIST_FETCH_FAILURE, { err: err.errors });
+        commit(types.FIND_FETCH_FAILURE, { err: err.errors });
         return Promise.reject(err);
       });
   },

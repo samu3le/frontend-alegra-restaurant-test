@@ -7,12 +7,16 @@
       },
       size: '',
     }"
-    @close="close"
   >
     <template v-slot:title>
       <h5 class="modal-title font-weight-bold">Pedido #(id)</h5>
     </template>
     <template v-slot:body>
+      <pre>
+        <code>
+          {{ data }}
+        </code>
+      </pre>
       <div class="mb-3">
         <div class="">
           <span class="font-weight-bold">Numero de platos en pedido: </span>
@@ -37,7 +41,6 @@
 
 <script>
 import { ref, reactive, computed } from "vue";
-import store from "@/store";
 
 import Modal from "@/components/Modal.vue";
 
@@ -52,30 +55,22 @@ export default {
     Modal,
   },
   setup(props, { emit, attrs }) {
-    const { findOne } = useOrder();
-    // const store = useStore();
 
-    // const order = computed(() => store.state.order.ingredient);
+    const { 
+      findOne,
+      data,
+    } = useOrder();
 
     const modal = ref(null);
-    const open = async (idData) => {
-      findOne(idData);
-      modal.value.open();
-    };
-
-    const close = () => {
-      for (const key in formValues) {
-        delete formValues[key];
-      }
-      for (const key in formValuesErrors.value) {
-        delete formValuesErrors.value[key];
-      }
+    const open = async ({ id }) => {
+      findOne({ id });
+      modal.value.open({});
     };
 
     return {
       modal,
       open,
-      // order,
+      data,
     };
   },
 };

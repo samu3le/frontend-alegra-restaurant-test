@@ -180,8 +180,8 @@ export default {
 
     const modal_find = ref(null);
     const modalEventFind = ({ id }) => {
-      modal_find.value.open(id);
       console.log("modal_find", modal_find.value);
+      modal_find.value.open({ id });
     };
 
     return {
