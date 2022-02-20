@@ -167,6 +167,7 @@ export default {
     PaginationCustom,
   },
   setup() {
+    
     const {
       listFetchingData,
       listErrors,

@@ -1,5 +1,7 @@
 import * as types from "./types";
 
+import store from "@/store";
+
 export default {
   [types.LIST_SET_PARAMS](state, params) {
     state.list.params = {
@@ -15,6 +17,11 @@ export default {
     state.list.fetchingData = false;
     state.list.errors = null;
     state.list.data = data.ingredients ?? data.shoppings;
+
+    if(data.ingredient){
+      console.log("data.ingredient", data.ingredient);
+      store.dispatch('ingredient/setData', data.ingredient );
+    }
   },
   [types.LIST_FETCH_FAILURE](state, { errors }) {
     state.list.fetchingData = false;

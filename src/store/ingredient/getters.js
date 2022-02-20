@@ -25,4 +25,7 @@ export default {
   createErrors(state) {
     return state.create.message;
   },
+  getData(state) {
+    return state.data;
+  }
 };

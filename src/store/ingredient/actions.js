@@ -71,4 +71,29 @@ export default {
                 return Promise.reject(err);
             });
     },
+    setData({ commit }, {
+        created_at,
+        created_by,
+        deleted_at,
+        id,
+        image,
+        is_active,
+        key,
+        name,
+        stock,
+        updated_at,
+    }) {
+        commit(types.SET_DATA, {
+            created_at,
+            created_by,
+            deleted_at,
+            id,
+            image,
+            is_active,
+            key,
+            name,
+            stock,
+            updated_at,
+        });
+    },
 };

@@ -48,4 +48,29 @@ export default {
         state.create.fetchingData = false
         state.create.errors = errors
     },
+    [types.SET_DATA] (state, {
+        created_at,
+        created_by,
+        deleted_at,
+        id,
+        image,
+        is_active,
+        key,
+        name,
+        stock,
+        updated_at,
+    }){
+        state.data = {
+            created_at,
+            created_by,
+            deleted_at,
+            id,
+            image,
+            is_active,
+            key,
+            name,
+            stock,
+            updated_at,
+        }
+    }
 }

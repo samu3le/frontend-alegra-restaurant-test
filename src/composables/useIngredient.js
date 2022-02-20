@@ -25,5 +25,7 @@ export default () => {
         setStateChange: ( e ) => store.dispatch(`${module}/state_change`, e ),
 
         setFetchingData: ( e ) => store.dispatch(`${module}/setFetchingData`, e ),
+
+        getData: computed(() => store.getters[`${module}/getData`] ),
     }
 }

@@ -6,9 +6,8 @@
           <div class="row">
             <div class="col">
               <h4 class="card-title">
-                {{ listData }}
               </h4>
-              <span> Cantidad Disponible: {{ stock }} </span>
+              <span> Cantidad Disponible: {{ getIngredientData.stock }} </span>
             </div>
             <div class="col">
               <div class="d-flex justify-content-end gap-2">
@@ -112,6 +111,7 @@ import ButtonCustom from "@/components/Button.vue";
 import PaginationCustom from "@/components/Pagination.vue";
 
 import useWarehouse from "@/composables/useWarehouse";
+import useIngredient from "@/composables/useIngredient";
 
 export default {
   name: "WarehouseShopping",
@@ -133,6 +133,10 @@ export default {
       getShoppingList,
       buy,
     } = useWarehouse();
+    
+    const {
+      getData: getIngredientData,
+    } = useIngredient();
 
     const { id } = route.query;
 
@@ -159,6 +163,7 @@ export default {
       getList,
       modalEvent,
       getShoppingList,
+      getIngredientData,
     };
   },
 };
