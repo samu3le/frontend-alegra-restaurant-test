@@ -26,17 +26,24 @@
         </div>
         <div class="card-content collapse show">
           <div class="card-body">
-            <!-- other card -->
             <div class="d-flex align-items-start">
+              <!-- other card -->
               <div
                 class="card m-3 text-dark bg-danger mb-3"
                 style="width: 18rem"
               >
                 <div class="card-header">
-                  requested <span class="badge bg-light text-dark">4</span>
+                  Solicitado
+                  <span class="badge bg-light text-dark">{{
+                    listData.data.requested.quantity
+                  }}</span>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li v-for="order in listData.data.requested.list" class="list-group-item" :key="order.id">
+                  <li
+                    v-for="order in listData.data.requested.list"
+                    class="list-group-item"
+                    :key="order.id"
+                  >
                     <div class="d-flex justify-content-between">
                       <span>
                         <span class="badge bg-secondary">
@@ -51,23 +58,30 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }}
-                        Actualizado: {{ order.updated_at }}
+                        Creado: {{ order.created_at }} Actualizado:
+                        {{ order.updated_at }}
                       </span>
                     </div>
                     <ul>
-                      <li v-for="detail in order.details" :key="detail.id" class="m-2">
+                      <li
+                        v-for="detail in order.details"
+                        :key="detail.id"
+                        class="m-2"
+                      >
                         <div class="d-flex justify-content-between">
                           <span>
                             {{ detail.product.name }}
                           </span>
                           <div class="d-flex">
-                            <span class="badge bg-secondary d-flex align-items-center m-1">
+                            <span
+                              class="badge bg-secondary d-flex align-items-center m-1"
+                            >
                               Cant. {{ detail.quantity }}
                             </span>
                             <ButtonCustom
                               :classesNames="{
-                                btn_custom: 'btn btn-outline-dark d-flex align-items-center gap-2 btn-sm',
+                                btn_custom:
+                                  'btn btn-outline-dark d-flex align-items-center gap-2 btn-sm',
                               }"
                               type="button"
                               text=""
@@ -86,18 +100,64 @@
                 style="width: 18rem"
               >
                 <div class="card-header">
-                  pending <span class="badge bg-light text-dark">4</span>
+                  Pendiente
+                  <span class="badge bg-light text-dark">{{
+                    listData.data.pending.quantity
+                  }}</span>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    pedido 1
-                    <div>
-                      <ul>
-                        <li>pizza 24</li>
-                        <li>arepa 12</li>
-                        <li>bebida 2</li>
-                      </ul>
+                  <li
+                    v-for="order in listData.data.pending.list"
+                    class="list-group-item"
+                    :key="order.id"
+                  >
+                    <div class="d-flex justify-content-between">
+                      <span>
+                        <span class="badge bg-secondary">
+                          # {{ order.id }}
+                        </span>
+                      </span>
+                      <span>
+                        <span class="badge bg-secondary">
+                          Cant. {{ order.quantity }}
+                        </span>
+                      </span>
                     </div>
+                    <div class="d-flex justify-content-between">
+                      <span>
+                        Creado: {{ order.created_at }} Actualizado:
+                        {{ order.updated_at }}
+                      </span>
+                    </div>
+                    <ul>
+                      <li
+                        v-for="detail in order.details"
+                        :key="detail.id"
+                        class="m-2"
+                      >
+                        <div class="d-flex justify-content-between">
+                          <span>
+                            {{ detail.product.name }}
+                          </span>
+                          <div class="d-flex">
+                            <span
+                              class="badge bg-secondary d-flex align-items-center m-1"
+                            >
+                              Cant. {{ detail.quantity }}
+                            </span>
+                            <ButtonCustom
+                              :classesNames="{
+                                btn_custom:
+                                  'btn btn-outline-dark d-flex align-items-center gap-2 btn-sm',
+                              }"
+                              type="button"
+                              text=""
+                              icon="arrow-right"
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -108,18 +168,55 @@
                 style="width: 18rem"
               >
                 <div class="card-header">
-                  dispatched <span class="badge bg-light text-dark">4</span>
+                  Enviado
+                  <span class="badge bg-light text-dark">{{
+                    listData.data.dispatched.quantity
+                  }}</span>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    pedido 1
-                    <div>
-                      <ul>
-                        <li>pizza 24</li>
-                        <li>arepa 12</li>
-                        <li>bebida 2</li>
-                      </ul>
+                  <li
+                    v-for="order in listData.data.dispatched.list"
+                    class="list-group-item"
+                    :key="order.id"
+                  >
+                    <div class="d-flex justify-content-between">
+                      <span>
+                        <span class="badge bg-secondary">
+                          # {{ order.id }}
+                        </span>
+                      </span>
+                      <span>
+                        <span class="badge bg-secondary">
+                          Cant. {{ order.quantity }}
+                        </span>
+                      </span>
                     </div>
+                    <div class="d-flex justify-content-between">
+                      <span>
+                        Creado: {{ order.created_at }} Actualizado:
+                        {{ order.updated_at }}
+                      </span>
+                    </div>
+                    <ul>
+                      <li
+                        v-for="detail in order.details"
+                        :key="detail.id"
+                        class="m-2"
+                      >
+                        <div class="d-flex justify-content-between">
+                          <span>
+                            {{ detail.product.name }}
+                          </span>
+                          <div class="d-flex">
+                            <span
+                              class="badge bg-secondary d-flex align-items-center m-1"
+                            >
+                              Cant. {{ detail.quantity }}
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -163,7 +260,6 @@ export default {
     // Edit,
   },
   setup() {
-
     const {
       listStatesFetchingData: listFetchingData,
       listStatesErrors: listErrors,
@@ -172,12 +268,6 @@ export default {
       listStatesParams: listParams,
       listStatesSetParams: setParams,
     } = useOrder();
-
-    const state = {
-      1: "requested",
-      2: "pending",
-      3: "dispatched",
-    };
 
     onBeforeMount(() => {
       setParams({
@@ -217,7 +307,6 @@ export default {
       modalEvent,
       modal_create,
       modal_edit,
-      state,
     };
   },
 };
