@@ -57,9 +57,15 @@
                       limit: 10,
                     },
                     {
-                      label: 'Cantidad faltante',
+                      label: 'Cantidad Solicitada',
                       field: 'requested_quantity',
                       type: 'text',
+                      limit: 10,
+                    },
+                    {
+                      label: 'Cantidad faltante',
+                      field: 'requested_quantity',
+                      type: 'custom',
                       limit: 10,
                     },
                     {
@@ -125,6 +131,21 @@
                         </svg>
                       </template>
                     </div>
+
+                    <div v-else-if="dataField == 'requested_quantity'">
+                      {{
+                        dataRow.stock - dataRow.requested_quantity < 0
+                          ? (dataRow.stock - dataRow.requested_quantity) * -1
+                          : dataRow.stock - dataRow.requested_quantity ==
+                            dataRow.stock
+                          ? "0"
+                          : dataRow.stock - dataRow.requested_quantity >
+                            dataRow.requested_quantity
+                          ? "0"
+                          : dataRow.stock - dataRow.requested_quantity
+                      }}
+                    </div>
+
                     <div v-else>
                       {{ dataFieldExact }}
                     </div>
@@ -167,7 +188,6 @@ export default {
     PaginationCustom,
   },
   setup() {
-    
     const {
       listFetchingData,
       listErrors,

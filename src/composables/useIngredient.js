@@ -1,31 +1,34 @@
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default () => {
+  const module = "ingredient";
 
-    const module = 'ingredient';
+  const store = useStore();
 
-    const store = useStore();
+  return {
+    listFetchingData: computed(
+      () => store.getters[`${module}/listFetchingData`]
+    ),
+    listErrors: computed(() => store.getters[`${module}/listErrors`]),
+    listData: computed(() => store.getters[`${module}/listData`]),
+    getList: () => store.dispatch(`${module}/getList`),
 
-    return {
-        listFetchingData: computed(() => store.getters[`${module}/listFetchingData`] ),
-        listErrors: computed(() => store.getters[`${module}/listErrors`] ),
-        listData: computed(() => store.getters[`${module}/listData`] ),
-        getList: () => store.dispatch(`${module}/getList`),
+    listParams: computed(() => store.getters[`${module}/listParams`]),
+    setParams: (e) => store.dispatch(`${module}/setParams`, e),
 
-        listParams: computed(() => store.getters[`${module}/listParams`] ),
-        setParams: ( e ) => store.dispatch(`${module}/setParams`, e ),
+    createFetchingData: computed(
+      () => store.getters[`${module}/createFetchingData`]
+    ),
+    createErrors: computed(() => store.getters[`${module}/createErrors`]),
+    create: () => store.dispatch(`${module}/create`),
 
-        createFetchingData: computed(() => store.getters[`${module}/createFetchingData`] ),
-        createErrors: computed(() => store.getters[`${module}/createErrors`] ),
-        create: () => store.dispatch(`${module}/create`),
+    findOne: (e) => store.dispatch(`${module}/find`, e),
+    create: (e) => store.dispatch(`${module}/create`, e),
+    setStateChange: (e) => store.dispatch(`${module}/state_change`, e),
 
-        findOne: ( e ) => store.dispatch(`${module}/findOne`, e ),
-        create: ( e ) => store.dispatch(`${module}/create`, e ),
-        setStateChange: ( e ) => store.dispatch(`${module}/state_change`, e ),
+    setFetchingData: (e) => store.dispatch(`${module}/setFetchingData`, e),
 
-        setFetchingData: ( e ) => store.dispatch(`${module}/setFetchingData`, e ),
-
-        getData: computed(() => store.getters[`${module}/getData`] ),
-    }
-}
+    getData: computed(() => store.getters[`${module}/getData`]),
+  };
+};

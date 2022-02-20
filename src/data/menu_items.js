@@ -60,6 +60,18 @@ export default [
     text: "Bodega",
     component: "warehouse/Shopping",
     isActive: true,
+    requiresAuth: true,
+    roles: ["warehouse", "manager"],
+    hiddenInTheSidebar: true,
+  },
+  {
+    name: "order_list",
+    path: "/order_list",
+    text: "Kitchen",
+    component: "order/OrderList",
+    isActive: true,
+    requiresAuth: true,
+    roles: ["kitchen", "manager"],
     hiddenInTheSidebar: true,
   },
 ];

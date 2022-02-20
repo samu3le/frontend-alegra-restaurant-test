@@ -5,6 +5,9 @@ export default {
   errors(state) {
     return state.errors;
   },
+  data(state) {
+    return state.data;
+  },
 
   listFetchingData(state) {
     return state.list.fetchingData;
