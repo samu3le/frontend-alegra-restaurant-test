@@ -40,6 +40,7 @@
           accept="image/png, image/jpeg"
           placeholder=""
           :errors="formValuesErrors.image"
+          @change="fileChange"
         />
       </div>
       <div class="mb-3">
