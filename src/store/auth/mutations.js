@@ -70,4 +70,10 @@ export default {
     window.localStorage.removeItem('auth')
     router.push({ name: 'Home' })
   },
+  [types.CLEAN](state,) {
+    state.auth = null
+    window.localStorage.removeItem('auth')
+    router.push({ name: 'Login' })
+  },
+  
 };

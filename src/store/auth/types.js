@@ -2,6 +2,8 @@ export const route = "auth";
 
 export const AUTH_VERIFY = "AUTH_VERIFY";
 
+export const CLEAN = "CLEAN";
+
 export const SIGN_IN_FETCH_REQUEST = "SIGN_IN_FETCH_REQUEST";
 export const SIGN_IN_FETCH_SUCCESS = "SIGN_IN_FETCH_SUCCESS";
 export const SIGN_IN_FETCH_FAILURE = "SIGN_IN_FETCH_FAILURE";

@@ -43,7 +43,6 @@ const router = createRouter({
 router.beforeEach((to, from) => {
 
     const auth = store.getters['auth/auth'];
-
     if(to.name === 'Login' && to.name === 'Login' && auth) {
         router.push({ name: 'Home' });
     }

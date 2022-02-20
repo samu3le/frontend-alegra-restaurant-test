@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import store from "@/store";
+
 const baseURL =
   process.env.VUE_APP_ENDPOINT_URL ??
   "http://test-alegra-restaurant.test/api/v1/";
@@ -35,6 +37,12 @@ instance.interceptors.response.use(
     const res = {};
 
     switch (status) {
+
+      case 401:
+        store.dispatch("auth/clean");
+
+        break;
+
       case 422:
         const { errors, message } = data;
         res["errors"] = errors ? errors : data;

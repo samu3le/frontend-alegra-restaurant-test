@@ -30,6 +30,9 @@ export default {
   verify({ commit }) {
     commit(types.AUTH_VERIFY);
   },
+  clean({ commit }) {
+    commit(types.CLEAN);
+  },
   signOut({ commit }) {
     commit(types.SIGN_OUT_FETCH_REQUEST);
 
