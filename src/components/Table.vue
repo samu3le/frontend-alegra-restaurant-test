@@ -24,19 +24,25 @@
       <tbody v-if="list">
         <tr v-for="row of list" :key="row.id">
           <td v-for="column in columns" :key="column.field">
-            <div v-if="column.type === 'image'">
-              <img
-                :src="row[column.field] ?? null"
-                :alt="row?.[column.field]"
-              />
-            </div>
-            <div v-else-if="column.type === 'custom'">
+            <div v-if="column.type === 'custom'">
               <slot
                 name="custom"
                 :data-row="row"
                 :data-field="column.field"
                 :data-field-exact="row?.[column.field]"
               ></slot>
+            </div>
+            <div v-else-if="column.type === 'image'">
+              <img
+                :src="row[column.field] ? row[column.field] : '@/assets/image-not-found.png'"
+                class="img-thumbnail"
+                style="width: 50px; height: 50px;"
+                @error="
+                  replaceByDefault({
+                    $event: $event,
+                    value: row[column.field],
+                  })"
+              />
             </div>
             <div v-else-if="column.type === 'text'">
               <template v-if="column?.limit">
@@ -177,6 +183,11 @@ export default {
     };
   },
   methods: {
+    replaceByDefault({$event, value}) {
+      console.log("replaceByDefault", $event);
+      console.log("value", value);
+      $event.target.src = require("@/assets/image-not-found.png");
+    },
     info({ text }) {
       this.$swal({
         html: text,
