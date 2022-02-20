@@ -59,7 +59,6 @@ export default {
       })
       .then(({ data }) => {
         commit(types.LIST_FETCH_SUCCESS, data);
-        commit(types.CREATE_FETCH_SUCCESS, data);
         return data;
       })
       .catch((err) => {
