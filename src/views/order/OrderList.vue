@@ -58,8 +58,8 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }}
-                        Actualizado: {{ order.updated_at }}
+                        Creado: {{ order.created_at }} Actualizado:
+                        {{ order.updated_at }}
                       </span>
                     </div>
                     <div class="d-flex justify-content-between">
@@ -107,8 +107,8 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }}
-                        Actualizado: {{ order.updated_at }}
+                        Creado: {{ order.created_at }} Actualizado:
+                        {{ order.updated_at }}
                       </span>
                     </div>
                     <ul>
@@ -129,13 +129,17 @@
                             </span>
                             <ButtonCustom
                               :classesNames="{
-                                btn_custom: `btn ${states[detail.state].color} d-flex align-items-center gap-2 btn-sm`,
+                                btn_custom: `btn ${
+                                  states[detail.state].color
+                                } d-flex align-items-center gap-2 btn-sm`,
                               }"
                               type="button"
                               :text="states[detail.state].name"
-                              @click="states[detail.state].click({
-                                id: detail.id,
-                              })"
+                              @click="
+                                states[detail.state].click({
+                                  id: detail.id,
+                                })
+                              "
                             />
                           </div>
                         </div>
@@ -176,8 +180,8 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }}
-                        Actualizado: {{ order.updated_at }}
+                        Creado: {{ order.created_at }} Actualizado:
+                        {{ order.updated_at }}
                       </span>
                     </div>
                     <ul>
@@ -232,7 +236,7 @@ import PaginationCustom from "@/components/Pagination.vue";
 import Create from "./Create.vue";
 
 import useOrder from "@/composables/useOrder";
-import { useSwal } from '@/composables/useSwal';
+import { useSwal } from "@/composables/useSwal";
 
 export default {
   name: "OrderManagement",
@@ -244,7 +248,6 @@ export default {
     // Edit,
   },
   setup() {
-
     const Swal = useSwal();
 
     const {
@@ -260,7 +263,7 @@ export default {
 
     onBeforeMount(() => {
       setParams({
-        per_page: 5,
+        per_page: 10,
         page: 1,
         search: undefined,
       });
@@ -300,21 +303,21 @@ export default {
         state: "created",
         name: "Solicitar",
         color: "btn-secondary",
-        click: async ({id}) => {
-          console.log("Solicitando",id);
+        click: async ({ id }) => {
+          console.log("Solicitando", id);
           try {
             await changeState({
               id,
               state: 3,
-            })
-            getList()
-          } catch ({errors}) {
+            });
+            getList();
+          } catch ({ errors }) {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: errors.id.join('\n'),
-            })
-            getList()
+              icon: "error",
+              title: "Oops...",
+              text: errors.id.join("\n"),
+            });
+            getList();
           }
         },
       },
@@ -322,21 +325,21 @@ export default {
         state: "requested",
         name: "Preparar",
         color: "btn-warning",
-        click: async ({id}) => {
-          console.log("Solicitado",id);
+        click: async ({ id }) => {
+          console.log("Solicitado", id);
           try {
             await changeState({
               id,
               state: 3,
-            })
-            getList()
-          } catch ({errors}) {
+            });
+            getList();
+          } catch ({ errors }) {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: errors.id.join('\n'),
-            })
-            getList()
+              icon: "error",
+              title: "Oops...",
+              text: errors.id.join("\n"),
+            });
+            getList();
           }
         },
       },
@@ -344,8 +347,8 @@ export default {
         state: "preparing",
         name: "Preparado",
         color: "btn-info",
-        click: async ({id}) => {
-          console.log("Preparado",id);
+        click: async ({ id }) => {
+          console.log("Preparado", id);
           await changeState({
             id,
             state: 4,
@@ -357,11 +360,11 @@ export default {
         state: "prepared",
         name: "Preparado",
         color: "btn-success",
-        click: async ({id}) => {
-          console.log("Preparado",id);
+        click: async ({ id }) => {
+          console.log("Preparado", id);
         },
       },
-    }
+    };
 
     return {
       listFetchingData,
