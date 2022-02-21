@@ -29,7 +29,6 @@ export default {
   },
   buy({ commit }, { id }) {
     commit(types.BUY_FETCH_REQUEST);
-    console.error(id, "en actions");
     return endpoint
       .post({
         url: `${types.route}/buy`,
@@ -47,13 +46,14 @@ export default {
         return Promise.reject(err);
       });
   },
-  getShoppingList({ commit }, { id }) {
+  getShoppingList({ state, commit }, { id }) {
     commit(types.LIST_FETCH_REQUEST);
 
     return endpoint
       .get({
         url: `${types.route}/shopping_list`,
         params: {
+          ...state.list.params,
           id,
         },
       })
