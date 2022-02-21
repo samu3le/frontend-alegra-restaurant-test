@@ -127,6 +127,7 @@ export default {
         try {
           await signIn(formValues);
         } catch (err) {
+          console.log('err', err)
           if (err?.errors) {
             for (const key in formValuesErrors.value) {
               formValuesErrors.value[key] = [];
