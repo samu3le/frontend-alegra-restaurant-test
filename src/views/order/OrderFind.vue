@@ -29,8 +29,8 @@
       <ul>
         <div v-for="item in data.details" :key="item.id">
           <li v-if="item?.product?.name">
-            {{ item.product.name }}: {{ item.quantity }} platos {{
-            }}<span
+            {{ item.product.name }}: {{ item.quantity }} platos
+            <span
               :class="[
                 item.state == 1
                   ? 'btn-danger'

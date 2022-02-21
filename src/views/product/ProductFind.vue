@@ -9,55 +9,46 @@
     }"
   >
     <template v-slot:title>
-      <h5 class="modal-title font-weight-bold">{{ data.name }}</h5>
+      <h5 class="modal-title font-weight-bold">Receta de: {{ data.name }}</h5>
     </template>
     <template v-slot:body>
       <div class="mb-3">
         <img
-          :src="data.img ? data.img : '@/assets/image-not-found.png'"
+          :src="data?.image ? data.image : '@/assets/image-not-found.png'"
           class="img-thumbnail"
           style="width: 50px; height: 50px"
           @error="
             replaceByDefault({
               $event: $event,
-              value: row[column.field],
+              value: data?.image,
             })
           "
         />
-        <!-- <div v-if="data?.quantity">
-          <span class="font-weight-bold">Numero de platos en pedido: </span>
-          <span>{{ data.quantity }}</span>
-        </div>
-        <div v-if="data?.owner?.email">
-          <span class="font-weight-bold">Creado por: </span>
-          <span>{{ data.owner.email }}</span>
-        </div>
-        <div v-if="data?.created_at">
+        <div class="mt-2" v-if="data?.created_at">
           <span class="font-weight-bold">Fecha creado: </span>
           <span>{{ data.created_at }}</span>
-        </div>-->
+        </div>
       </div>
-      <!-- <ul>
-        <div v-for="item in data.details" :key="item.id">
-          <li v-if="item?.product?.name">
-            {{ item.product.name }}: {{ item.quantity }} platos {{
-            }}<span
-              :class="[
-                item.state == 1
-                  ? 'btn-danger'
-                  : item.state == 2
-                  ? 'btn-warning'
-                  : item.state == 3
-                  ? 'btn-info'
-                  : item.state == 4
-                  ? 'btn-success'
-                  : null,
-              ]"
-              >{{ state[item.state] }}</span
-            >
+      <span class="font-weight-bold">Ingredientes</span>
+      <ul>
+        <div v-for="item in data.ingredients" :key="item.id">
+          <li v-if="item?.name">
+            {{ item.name }}: {{ item.pivot.quantity }}
+            <span
+              ><img
+                :src="item?.image ? item.image : '@/assets/image-not-found.png'"
+                class="img-thumbnail"
+                style="width: 50px; height: 50px"
+                @error="
+                  replaceByDefault({
+                    $event: $event,
+                    value: item?.image,
+                  })
+                "
+            /></span>
           </li>
         </div>
-      </ul> -->
+      </ul>
     </template>
   </modal>
 </template>
@@ -94,6 +85,7 @@ export default {
     };
 
     const replaceByDefault = ({ $event, value }) => {
+      console.log("");
       $event.target.src = require("@/assets/image-not-found.png");
     };
 
