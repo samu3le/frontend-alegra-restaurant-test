@@ -42,7 +42,7 @@ export default {
   [types.STATE_CHANGE_FETCH_SUCCESS](state, { data }) {
     state.create.fetchingData = false;
     state.create.errors = null;
-    state.create.data = data.products;
+    state.create.data = data.product;
   },
   [types.STATE_CHANGE_FETCH_FAILURE](state, { errors }) {
     state.create.fetchingData = false;

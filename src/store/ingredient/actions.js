@@ -52,13 +52,12 @@ export default {
     },
     state_change({ commit }, { id, active }) {
         commit(types.STATE_CHANGE_FETCH_REQUEST);
-
         return endpoint
             .post({
-                url: `${types.route}/state_change`,
+                url: `${types.route}/update`,
                 params: {
                     id,
-                    active: active ? 1 : 0,
+                    is_active: active ? 1 : 0,
                 },
             })
             .then(({ data }) => {
@@ -66,7 +65,6 @@ export default {
                 return data;
             })
             .catch((err) => {
-                console.log("err", err);
                 commit(types.STATE_CHANGE_FETCH_FAILURE, { err: err.errors });
                 return Promise.reject(err);
             });
