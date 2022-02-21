@@ -17,7 +17,6 @@ export default {
     errors: null,
     data: {
       // example response backend
-      page: 0,
       current_page: 0,
       per_page: 10,
       last_page: 1,

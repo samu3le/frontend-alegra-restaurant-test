@@ -167,14 +167,14 @@ export default {
                     per_page: limit.value,
                     page: 1,
                     search,
-                    sort_by: 'created_at',
+                    sort_by: 'name',
                     sort: 'asc',
                     unique_in_drivers: true,
                 }) : setParams({
                     per_page: limit.value,
                     page: 1,
                     search,
-                    sort_by: 'created_at',
+                    sort_by: 'name',
                     sort: 'asc',
                 })
                 getList()
@@ -186,13 +186,13 @@ export default {
                 per_page: limit.value,
                 page: 1,
                 search,
-                sort_by: 'created_at',
+                sort_by: 'name',
                 sort: 'asc',
                 unique_in_drivers: true,
             }) : setParams({
                 per_page: limit.value,
                 page: 1,
-                sort_by: 'created_at',
+                sort_by: 'name',
                 sort: 'asc',
                 search,
             })
@@ -226,18 +226,21 @@ export default {
         })
 
         const fetch = async (e) => {
+
+            console.log('fetch',e)
+            
             unique_in_drivers.value ? setParams({
                 per_page: limit.value,
                 page: 1,
                 search: e,
-                sort_by: 'created_at',
+                sort_by: 'name',
                 sort: 'asc',
                 unique_in_drivers: true,
             }) : setParams({
                 per_page: limit.value,
                 page: 1,
                 search: e,
-                sort_by: 'created_at',
+                sort_by: 'name',
                 sort: 'asc',
             })
 
