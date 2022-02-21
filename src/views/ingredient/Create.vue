@@ -114,11 +114,11 @@ export default {
       // is_active: yup.boolean(),
     });
 
+    const nameFake = makeid(10);
+
     let formValues = reactive({
-      // name
-      // key
-      // stock
-      // image
+      name: nameFake,
+      key: nameFake,
     });
 
     const formValuesErrors = ref({});
