@@ -63,9 +63,15 @@
         />
         <template v-if="formValues.ingredients.length">
           <div class="container">
-            <div class="row" v-for="(item, index) in formValues.ingredients" :key="index">
-              <div class="col-sm-7 d-flex align-items-center">{{ item.name }}</div>
-              <div class="col-sm-2 d-flex align-items-center ">
+            <div
+              class="row"
+              v-for="(item, index) in formValues.ingredients"
+              :key="index"
+            >
+              <div class="col-sm-7 d-flex align-items-center">
+                {{ item.name }}
+              </div>
+              <div class="col-sm-2 d-flex align-items-center">
                 <InputText
                   name="quantity"
                   type="number"
@@ -75,10 +81,13 @@
                   :value="item.quantity"
                 />
               </div>
-              <div class="col-sm-3 d-flex align-items-center justify-content-end">
+              <div
+                class="col-sm-3 d-flex align-items-center justify-content-end"
+              >
                 <ButtonCustom
                   :classesNames="{
-                    btn_custom: 'btn btn-outline-danger d-flex align-items-center gap-2',
+                    btn_custom:
+                      'btn btn-outline-danger d-flex align-items-center gap-2',
                   }"
                   type="button"
                   text=""
@@ -116,10 +125,10 @@ import Modal from "@/components/Modal.vue";
 import ButtonCustom from "@/components/Button.vue";
 import InputText from "@/components/InputText.vue";
 
-import SelectIngredient from '@/views/ingredient/Select.vue'
+import SelectIngredient from "@/views/ingredient/Select.vue";
 
 import useProduct from "@/composables/useProduct";
-
+import { useSwal } from "@/composables/useSwal";
 import { getErrorsFromYup } from "@/helpers";
 
 export const props = {};
@@ -135,6 +144,7 @@ export default {
     SelectIngredient,
   },
   setup(props, { emit, attrs }) {
+    const Swal = useSwal();
     const makeid = (length) => {
       let result = "";
       const characters =
@@ -167,19 +177,19 @@ export default {
 
     const modal = ref(null);
 
-    const ingredients_select = ref(null)
+    const ingredients_select = ref(null);
 
     const open = () => {
       modal.value.open({});
-      ingredients_select.value.reset()
+      ingredients_select.value.reset();
     };
 
     const close = () => {
-      console.log("close")
-      formValues.value.name = ""
-      formValues.value.ingredients = []
-      formValues.value.image = ""
-      formValues.value.ingredients_selected = {}
+      console.log("close");
+      formValues.value.name = "";
+      formValues.value.ingredients = [];
+      formValues.value.image = "";
+      formValues.value.ingredients_selected = {};
       formValuesErrors.value = {};
     };
 
@@ -192,25 +202,29 @@ export default {
       reader.readAsDataURL(file);
     };
     const addIngredient = () => {
-      if(!formValues.value.ingredients_selected?.id){
-        alert('Debe indicar un ingrediente');
+      if (!formValues.value.ingredients_selected?.id) {
+        alert("Debe indicar un ingrediente");
         return false;
-      }; 
-      const founded = formValues.value.ingredients.some(e => {
+      }
+      const founded = formValues.value.ingredients.some((e) => {
         if (e.id === formValues.value.ingredients_selected.id) {
           return true;
         }
-      })
-      founded ? alert('El ingrediente ya fue agregado') : formValues.value.ingredients.push({
-        ...formValues.value.ingredients_selected,
-        quantity: 1
-      })
-    }
+      });
+      founded
+        ? alert("El ingrediente ya fue agregado")
+        : formValues.value.ingredients.push({
+            ...formValues.value.ingredients_selected,
+            quantity: 1,
+          });
+    };
 
     const remIngredient = (ingredient) => {
-      const founded = formValues.value.ingredients.findIndex(e => e.id === ingredient.id)
-      founded !== -1 ? formValues.value.ingredients.splice(founded, 1) : null
-    }
+      const founded = formValues.value.ingredients.findIndex(
+        (e) => e.id === ingredient.id
+      );
+      founded !== -1 ? formValues.value.ingredients.splice(founded, 1) : null;
+    };
 
     const createEvent = async () => {
       try {
@@ -231,6 +245,11 @@ export default {
             for (const error in errors) {
               formValuesErrors.value[error] = err.errors[error];
             }
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err?.errors?.ingredients,
+            });
           }
         }
       } catch (err) {

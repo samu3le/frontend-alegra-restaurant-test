@@ -66,9 +66,9 @@
                       limit: 10,
                     },
                     {
-                      label: 'Creado en',
+                      label: 'Creado hace',
                       field: 'created_at',
-                      type: 'datetime',
+                      type: 'datetime-ago',
                     },
                   ]"
                   :list="listData.data"
@@ -113,6 +113,7 @@ import PaginationCustom from "@/components/Pagination.vue";
 
 import useWarehouse from "@/composables/useWarehouse";
 import useIngredient from "@/composables/useIngredient";
+import { useSwal } from "@/composables/useSwal";
 
 export default {
   name: "WarehouseShopping",
@@ -122,6 +123,7 @@ export default {
     PaginationCustom,
   },
   setup(props) {
+    const Swal = useSwal();
     const route = useRoute();
 
     const {
@@ -156,8 +158,16 @@ export default {
     };
 
     const buyEvent = () => {
-      buy({ id });
-      getListShop();
+      try {
+        buy({ id });
+        getListShop();
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error,
+        });
+      }
     };
 
     return {
