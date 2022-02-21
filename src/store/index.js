@@ -6,6 +6,7 @@ import product from "./product";
 import order from "./order";
 import warehouse from "./warehouse";
 import auth from "./auth";
+import user from "./user";
 
 import { debug } from "@/helpers/getVars.js";
 
@@ -19,5 +20,6 @@ export default createStore({
     order,
     warehouse,
     auth,
+    user,
   },
 });

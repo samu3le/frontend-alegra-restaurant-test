@@ -74,6 +74,15 @@ export default [
     roles: ["kitchen", "manager"],
     hiddenInTheSidebar: true,
   },
+  {
+    name: "user",
+    path: "/user",
+    text: "User",
+    component: "user/Management",
+    isActive: true,
+    requiresAuth: true,
+    roles: ["manager"],
+  },
 ];
 
 /**
