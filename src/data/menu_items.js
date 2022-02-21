@@ -65,14 +65,14 @@ export default [
     hiddenInTheSidebar: true,
   },
   {
-    name: "order_list",
+    name: "Cocina",
     path: "/order_list",
     text: "Kitchen",
     component: "order/OrderList",
     isActive: true,
     requiresAuth: true,
     roles: ["kitchen", "manager"],
-    hiddenInTheSidebar: true,
+    hiddenInTheSidebar: false,
   },
   {
     name: "user",

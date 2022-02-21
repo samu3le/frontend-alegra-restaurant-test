@@ -34,14 +34,19 @@
             </div>
             <div v-else-if="column.type === 'image'">
               <img
-                :src="row[column.field] ? row[column.field] : '@/assets/image-not-found.png'"
+                :src="
+                  row[column.field]
+                    ? row[column.field]
+                    : '@/assets/image-not-found.png'
+                "
                 class="img-thumbnail"
-                style="width: 50px; height: 50px;"
+                style="width: 50px; height: 50px"
                 @error="
                   replaceByDefault({
                     $event: $event,
                     value: row[column.field],
-                  })"
+                  })
+                "
               />
             </div>
             <div v-else-if="column.type === 'text'">
@@ -183,7 +188,7 @@ export default {
     };
   },
   methods: {
-    replaceByDefault({$event, value}) {
+    replaceByDefault({ $event, value }) {
       $event.target.src = require("@/assets/image-not-found.png");
     },
     info({ text }) {

@@ -60,6 +60,11 @@
                       field: 'is_active',
                       type: 'custom',
                     },
+                    {
+                      label: 'Accion',
+                      field: 'actions',
+                      type: 'custom',
+                    },
                   ]"
                   :list="listData.data"
                   :per_page="listParams.per_page"
@@ -83,6 +88,18 @@
                         />
                       </div>
                     </div>
+                    <div v-else-if="dataField == 'actions'">
+                      <ButtonCustom
+                        :classesNames="{
+                          btn_custom:
+                            'btn btn-outline-primary d-flex align-items-center gap-2',
+                        }"
+                        type="button"
+                        text="Ver"
+                        icon="eye"
+                        @click="modalEventFind(dataRow)"
+                      />
+                    </div>
                     <div v-else>
                       {{ dataFieldExact }}
                     </div>
@@ -103,6 +120,7 @@
       </div>
     </div>
     <Create ref="modal_create" @finish_success="getList" />
+    <Find ref="modal_find" @finish_success="getList" />
   </div>
 </template>
 
@@ -113,6 +131,7 @@ import TableCustom from "@/components/Table.vue";
 import ButtonCustom from "@/components/Button.vue";
 import PaginationCustom from "@/components/Pagination.vue";
 import Create from "./Create.vue";
+import Find from "./ProductFind.vue";
 
 import useProduct from "@/composables/useProduct";
 import { useSwal } from "@/composables/useSwal";
@@ -124,6 +143,7 @@ export default {
     ButtonCustom,
     PaginationCustom,
     Create,
+    Find,
   },
   setup() {
     const Swal = useSwal();
@@ -160,9 +180,10 @@ export default {
       modal_create.value.open();
     };
 
-    const modal_edit = ref(null);
-    const modalEventUpdate = ({ id: idData }) => {
-      // modal_edit.value.open({ idData });
+    const modal_find = ref(null);
+    const modalEventFind = ({ id }) => {
+      console.log("modal_find", modal_find.value);
+      modal_find.value.open({ id });
     };
 
     const state_change = ({ id, active }) => {
@@ -189,6 +210,8 @@ export default {
       modalEvent,
       modal_create,
       state_change,
+      modalEventFind,
+      modal_find,
     };
   },
 };

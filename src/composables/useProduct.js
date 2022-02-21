@@ -28,5 +28,8 @@ export default () => {
     setStateChange: (e) => store.dispatch(`${module}/state_change`, e),
 
     setFetchingData: (e) => store.dispatch(`${module}/setFetchingData`, e),
+
+    data: computed(() => store.getters[`${module}/data`]),
+    findOne: (e) => store.dispatch(`${module}/find`, e),
   };
 };
