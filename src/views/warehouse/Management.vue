@@ -68,6 +68,11 @@
                       field: 'no_stock',
                       type: 'custom',
                     },
+                    {
+                      label: 'Creado hace',
+                      field: 'created_at',
+                      type: 'datetime-ago',
+                    },
                   ]"
                   :list="listData.data"
                   :per_page="listParams.per_page"

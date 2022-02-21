@@ -66,9 +66,9 @@
                       limit: 10,
                     },
                     {
-                      label: 'Creado en',
+                      label: 'Creado hace',
                       field: 'created_at',
-                      type: 'datetime',
+                      type: 'datetime-ago',
                     },
                   ]"
                   :list="listData.data"
