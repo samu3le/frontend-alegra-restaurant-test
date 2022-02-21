@@ -4,7 +4,7 @@ import store from "@/store";
 
 const baseURL =
   process.env.VUE_APP_ENDPOINT_URL ??
-  "http://test-alegra-restaurant.test/api/v1/";
+  "https://test-restaurant-db.herokuapp.com/api/v1/";
 
 const getToken = () => {
   try {
@@ -39,7 +39,6 @@ instance.interceptors.response.use(
     const res = {};
 
     switch (status) {
-
       case 401:
         store.dispatch("auth/clean");
         res["errors"] = errors ? errors : data;
