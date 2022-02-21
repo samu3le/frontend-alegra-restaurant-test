@@ -184,8 +184,6 @@ export default {
   },
   methods: {
     replaceByDefault({$event, value}) {
-      console.log("replaceByDefault", $event);
-      console.log("value", value);
       $event.target.src = require("@/assets/image-not-found.png");
     },
     info({ text }) {
@@ -200,19 +198,10 @@ export default {
       e.target.src = "images/not_found.png";
     },
     show_hide({ element }) {
-      console.log("element", element);
-
       const isShow = element.dataset.isShow;
-      console.log("isShow", isShow);
-
       const span_text_hide = element.querySelector('span[name="text-hide"]');
-      console.log("span_text_hide", span_text_hide);
-
       const show_more = element.querySelector('span[name="show-more"]');
-      console.log("show_more", show_more);
-
       const show_less = element.querySelector('span[name="show-less"]');
-      console.log("show_less", show_less);
 
       if (isShow == "true") {
         span_text_hide.style.display = "none";

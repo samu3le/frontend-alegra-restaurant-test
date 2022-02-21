@@ -207,7 +207,7 @@
               <!-- ------ -->
             </div>
             <PaginationCustom
-              :page="listData.page"
+              :page="listData.current_page"
               :per_page="listData.per_page"
               :last_page="listData.last_page"
               :next_page="listData.next_page"
