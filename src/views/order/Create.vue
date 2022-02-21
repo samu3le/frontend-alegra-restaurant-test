@@ -58,6 +58,8 @@ import InputText from "@/components/InputText.vue";
 
 import useOrder from "@/composables/useOrder";
 
+import { useSwal } from "@/composables/useSwal";
+
 import { getErrorsFromYup } from "@/helpers";
 
 export const props = {};
@@ -71,6 +73,8 @@ export default {
     InputText,
   },
   setup(props, { emit, attrs }) {
+    const Swal = useSwal();
+
     const { createFetchingData, createErrors, create } = useOrder();
 
     const schemaCreate = yup.object().shape({
@@ -105,6 +109,7 @@ export default {
       console.log("createEvent");
 
       try {
+        console.log("entra");
         await schemaCreate.validate(formValues, { abortEarly: false });
         for (const key in formValuesErrors.value) {
           formValuesErrors.value[key] = [];
@@ -123,6 +128,12 @@ export default {
             for (const error in errors) {
               formValuesErrors.value[error] = err.errors[error];
             }
+            modal.value.close();
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err.errors,
+            });
           }
         }
       } catch (err) {
@@ -130,6 +141,12 @@ export default {
         formValuesErrors.value = getErrorsFromYup({
           arr: formValuesErrors.value,
           err,
+        });
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errors.id.join("\n"),
         });
       }
     };

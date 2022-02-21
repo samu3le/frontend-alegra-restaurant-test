@@ -79,6 +79,7 @@ import ButtonCustom from "@/components/Button.vue";
 import InputText from "@/components/InputText.vue";
 
 import useIngredient from "@/composables/useIngredient";
+import { useSwal } from "@/composables/useSwal";
 
 import { getErrorsFromYup } from "@/helpers";
 
@@ -93,6 +94,7 @@ export default {
     InputText,
   },
   setup(props, { emit, attrs }) {
+    const Swal = useSwal();
     const makeid = (length) => {
       let result = "";
       const characters =
@@ -167,6 +169,11 @@ export default {
             for (const error in errors) {
               formValuesErrors.value[error] = err.errors[error];
             }
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err.errors,
+            });
           }
         }
       } catch (err) {
