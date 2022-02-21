@@ -10,7 +10,9 @@
         ]"
     >
         <template v-if="!loading">
-            <vue-feather :type="icon"></vue-feather>
+            <template v-if="!!icon">
+                <vue-feather :type="icon"></vue-feather>
+            </template>
             {{ text }}
         </template>
         <div v-else class="d-flex justify-content-center align-items-center">
@@ -39,7 +41,7 @@ export default {
         },
         icon: { 
             type: String,
-            default: 'fas fa-sync-alt',
+            default: '',
         },
         classesNames: { 
             type: Object,

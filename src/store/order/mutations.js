@@ -83,4 +83,18 @@ export default {
       ...params,
     };
   },
+
+  [types.GENERATE_FETCH_REQUEST](state) {
+    state.generate.fetchingData = true;
+    state.generate.errors = null;
+  },
+  [types.GENERATE_FETCH_SUCCESS](state, { data }) {
+    state.generate.fetchingData = false;
+    state.generate.errors = null;
+    state.generate.data = data.order;
+  },
+  [types.GENERATE_FETCH_FAILURE](state, { errors }) {
+    state.generate.fetchingData = false;
+    state.generate.errors = errors;
+  },
 };

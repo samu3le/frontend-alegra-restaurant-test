@@ -58,39 +58,21 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }} Actualizado:
-                        {{ order.updated_at }}
+                        Creado: {{ order.created_at }}
+                        Actualizado: {{ order.updated_at }}
                       </span>
                     </div>
-                    <ul>
-                      <li
-                        v-for="detail in order.details"
-                        :key="detail.id"
-                        class="m-2"
-                      >
-                        <div class="d-flex justify-content-between">
-                          <span>
-                            {{ detail.product.name }}
-                          </span>
-                          <div class="d-flex">
-                            <span
-                              class="badge bg-secondary d-flex align-items-center m-1"
-                            >
-                              Cant. {{ detail.quantity }}
-                            </span>
-                            <ButtonCustom
-                              :classesNames="{
-                                btn_custom:
-                                  'btn btn-outline-dark d-flex align-items-center gap-2 btn-sm',
-                              }"
-                              type="button"
-                              text=""
-                              icon="arrow-right"
-                            />
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                    <div class="d-flex justify-content-between">
+                      <ButtonCustom
+                        :classesNames="{
+                          btn_custom:
+                            'btn btn-warning d-flex align-items-center gap-2 btn-sm',
+                        }"
+                        type="button"
+                        text="Solicitar"
+                        @click="requestOrder(order)"
+                      />
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -125,8 +107,8 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }} Actualizado:
-                        {{ order.updated_at }}
+                        Creado: {{ order.created_at }}
+                        Actualizado: {{ order.updated_at }}
                       </span>
                     </div>
                     <ul>
@@ -147,12 +129,13 @@
                             </span>
                             <ButtonCustom
                               :classesNames="{
-                                btn_custom:
-                                  'btn btn-outline-dark d-flex align-items-center gap-2 btn-sm',
+                                btn_custom: `btn ${states[detail.state].color} d-flex align-items-center gap-2 btn-sm`,
                               }"
                               type="button"
-                              text=""
-                              icon="arrow-right"
+                              :text="states[detail.state].name"
+                              @click="states[detail.state].click({
+                                id: detail.id,
+                              })"
                             />
                           </div>
                         </div>
@@ -193,8 +176,8 @@
                     </div>
                     <div class="d-flex justify-content-between">
                       <span>
-                        Creado: {{ order.created_at }} Actualizado:
-                        {{ order.updated_at }}
+                        Creado: {{ order.created_at }}
+                        Actualizado: {{ order.updated_at }}
                       </span>
                     </div>
                     <ul>
@@ -249,6 +232,7 @@ import PaginationCustom from "@/components/Pagination.vue";
 import Create from "./Create.vue";
 
 import useOrder from "@/composables/useOrder";
+import { useSwal } from '@/composables/useSwal';
 
 export default {
   name: "OrderManagement",
@@ -260,6 +244,9 @@ export default {
     // Edit,
   },
   setup() {
+
+    const Swal = useSwal();
+
     const {
       listStatesFetchingData: listFetchingData,
       listStatesErrors: listErrors,
@@ -267,11 +254,13 @@ export default {
       getListStates: getList,
       listStatesParams: listParams,
       listStatesSetParams: setParams,
+      generateOrder,
+      changeState,
     } = useOrder();
 
     onBeforeMount(() => {
       setParams({
-        per_page: 10,
+        per_page: 5,
         page: 1,
         search: undefined,
       });
@@ -297,6 +286,83 @@ export default {
       // modal_edit.value.open({ idData });
     };
 
+    const requestOrder = async ({ id }) => {
+      await generateOrder({ id });
+      getList();
+    };
+
+    // 1 - cuando fue generado el pedido
+    // 2 - cuando fue solicitado a bodega
+    // 3 - cuando cocina confirma que hay items para preparar
+    // 4 - cuando esta listo para ser entregado
+    const states = {
+      1: {
+        state: "created",
+        name: "Solicitar",
+        color: "btn-secondary",
+        click: async ({id}) => {
+          console.log("Solicitando",id);
+          try {
+            await changeState({
+              id,
+              state: 3,
+            })
+            getList()
+          } catch ({errors}) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errors.id.join('\n'),
+            })
+            getList()
+          }
+        },
+      },
+      2: {
+        state: "requested",
+        name: "Preparar",
+        color: "btn-warning",
+        click: async ({id}) => {
+          console.log("Solicitado",id);
+          try {
+            await changeState({
+              id,
+              state: 3,
+            })
+            getList()
+          } catch ({errors}) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errors.id.join('\n'),
+            })
+            getList()
+          }
+        },
+      },
+      3: {
+        state: "preparing",
+        name: "Preparado",
+        color: "btn-info",
+        click: async ({id}) => {
+          console.log("Preparado",id);
+          await changeState({
+            id,
+            state: 4,
+          });
+          getList();
+        },
+      },
+      4: {
+        state: "prepared",
+        name: "Preparado",
+        color: "btn-success",
+        click: async ({id}) => {
+          console.log("Preparado",id);
+        },
+      },
+    }
+
     return {
       listFetchingData,
       listErrors,
@@ -307,6 +373,8 @@ export default {
       modalEvent,
       modal_create,
       modal_edit,
+      states,
+      requestOrder,
     };
   },
 };

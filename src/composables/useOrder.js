@@ -34,5 +34,8 @@ export default () => {
     setStateChange: (e) => store.dispatch(`${module}/state_change`, e),
 
     setFetchingData: (e) => store.dispatch(`${module}/setFetchingData`, e),
+
+    generateOrder: (e) => store.dispatch(`${module}/generateOrder`, e),
+    changeState: (e) => store.dispatch(`${module}/changeState`, e),
   };
 };

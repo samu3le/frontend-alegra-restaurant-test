@@ -2,6 +2,11 @@ export default {
   fetchingData: false,
   errors: null,
   data: {},
+  generate: {
+    fetchingData: false,
+    errors: null,
+    data: {},
+  },
   create: {
     fetchingData: false,
     message: null,

@@ -47,6 +47,39 @@ export default {
         return Promise.reject(err);
       });
   },
+  generateOrder({ commit }, { id }) {
+    commit(types.GENERATE_FETCH_REQUEST);
+
+    return endpoint
+      .post({
+        url: `${types.route}/deet_list`,
+        params: {
+          id,
+        },
+      })
+      .then(({ data }) => {
+        commit(types.GENERATE_FETCH_SUCCESS, data);
+        return data;
+      })
+      .catch((err) => {
+        console.log("err", err);
+        commit(types.GENERATE_FETCH_FAILURE, { err: err.errors });
+        return Promise.reject(err);
+      });
+  },
+  changeState({ commit }, {
+    id,
+    state,
+  }) {
+    return endpoint
+      .post({
+        url: `${types.route}/detail_state`,
+        params: {
+          id,
+          state,
+        },
+      });
+  },
   find({ commit }, 
     { id }
   ) {
