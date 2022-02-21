@@ -27,16 +27,12 @@ export default {
         return Promise.reject(err);
       });
   },
-  create({ commit }, { 
-    name,
-    image,
-    ingredients,
-  }) {
+  create({ commit }, { name, image, ingredients }) {
     commit(types.CREATE_FETCH_REQUEST);
 
     const ingredientsToObject = {};
-    for(const ingredient of ingredients){
-      ingredientsToObject[ingredient.id] = ingredient.quantity
+    for (const ingredient of ingredients) {
+      ingredientsToObject[ingredient.id] = ingredient.quantity;
     }
 
     return endpoint
@@ -75,6 +71,24 @@ export default {
       .catch((err) => {
         console.log("err", err);
         commit(types.STATE_CHANGE_FETCH_FAILURE, { err: err.errors });
+        return Promise.reject(err);
+      });
+  },
+  find({ commit }, { id }) {
+    commit(types.FIND_FETCH_REQUEST);
+
+    return endpoint
+      .get({
+        url: `${types.route}/find`,
+        params: { id },
+      })
+      .then(({ data }) => {
+        commit(types.FIND_FETCH_SUCCESS, data);
+        return {};
+      })
+      .catch((err) => {
+        console.log("err", err);
+        commit(types.FIND_FETCH_FAILURE, { err: err.errors });
         return Promise.reject(err);
       });
   },

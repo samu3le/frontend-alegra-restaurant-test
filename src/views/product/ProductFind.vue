@@ -9,11 +9,22 @@
     }"
   >
     <template v-slot:title>
-      <h5 class="modal-title font-weight-bold">Pedido #({{ data.id }})</h5>
+      <h5 class="modal-title font-weight-bold">{{ data.name }}</h5>
     </template>
     <template v-slot:body>
       <div class="mb-3">
-        <div v-if="data?.quantity">
+        <img
+          :src="data.img ? data.img : '@/assets/image-not-found.png'"
+          class="img-thumbnail"
+          style="width: 50px; height: 50px"
+          @error="
+            replaceByDefault({
+              $event: $event,
+              value: row[column.field],
+            })
+          "
+        />
+        <!-- <div v-if="data?.quantity">
           <span class="font-weight-bold">Numero de platos en pedido: </span>
           <span>{{ data.quantity }}</span>
         </div>
@@ -24,9 +35,9 @@
         <div v-if="data?.created_at">
           <span class="font-weight-bold">Fecha creado: </span>
           <span>{{ data.created_at }}</span>
-        </div>
+        </div>-->
       </div>
-      <ul>
+      <!-- <ul>
         <div v-for="item in data.details" :key="item.id">
           <li v-if="item?.product?.name">
             {{ item.product.name }}: {{ item.quantity }} platos {{
@@ -46,17 +57,17 @@
             >
           </li>
         </div>
-      </ul>
+      </ul> -->
     </template>
   </modal>
 </template>
 
 <script>
-import { ref, reactive, computed } from "vue";
+import { ref } from "vue";
 
 import Modal from "@/components/Modal.vue";
 
-import useOrder from "@/composables/useOrder";
+import useProduct from "@/composables/useProduct";
 
 export const props = {};
 
@@ -67,7 +78,7 @@ export default {
     Modal,
   },
   setup(props, { emit, attrs }) {
-    const { findOne, data } = useOrder();
+    const { findOne, data } = useProduct();
 
     const modal = ref(null);
     const open = async ({ id }) => {
@@ -82,11 +93,16 @@ export default {
       4: "Preparado",
     };
 
+    const replaceByDefault = ({ $event, value }) => {
+      $event.target.src = require("@/assets/image-not-found.png");
+    };
+
     return {
       modal,
       open,
       data,
       state,
+      replaceByDefault,
     };
   },
 };

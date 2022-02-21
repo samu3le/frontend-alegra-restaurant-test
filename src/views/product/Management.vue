@@ -60,6 +60,11 @@
                       field: 'is_active',
                       type: 'custom',
                     },
+                    {
+                      label: 'Accion',
+                      field: 'actions',
+                      type: 'custom',
+                    },
                   ]"
                   :list="listData.data"
                   :per_page="listParams.per_page"
@@ -82,6 +87,18 @@
                           "
                         />
                       </div>
+                    </div>
+                    <div v-else-if="dataField == 'actions'">
+                      <ButtonCustom
+                        :classesNames="{
+                          btn_custom:
+                            'btn btn-outline-primary d-flex align-items-center gap-2',
+                        }"
+                        type="button"
+                        text="Ver"
+                        icon="eye"
+                        @click="modalEventFind(dataRow)"
+                      />
                     </div>
                     <div v-else>
                       {{ dataFieldExact }}
@@ -194,6 +211,7 @@ export default {
       modal_create,
       state_change,
       modalEventFind,
+      modal_find,
     };
   },
 };
