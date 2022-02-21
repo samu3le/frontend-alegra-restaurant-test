@@ -99,13 +99,13 @@ export default {
         },
     },
     setup(props, { emit, attrs }) {
-
+        const update = ({page, enabled}) => {
+            if (enabled) {
+                emit('update', {page});
+            }
+        }
         return {
-            update({page, enabled}) {
-                if (enabled) {
-                    emit('update', {page});
-                }
-            },
+            update,
         };
     },
 }
