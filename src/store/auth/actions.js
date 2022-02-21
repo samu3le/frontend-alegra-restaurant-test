@@ -19,7 +19,7 @@ export default {
       })
       .then(({ data }) => {
         commit(types.SIGN_IN_FETCH_SUCCESS, data);
-        return data;
+        return Promise.resolve(data);
       })
       .catch((err) => {
         console.error("err", err);

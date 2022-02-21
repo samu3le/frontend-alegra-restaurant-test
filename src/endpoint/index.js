@@ -34,17 +34,18 @@ instance.interceptors.response.use(
     const { response } = error;
     const { data, status } = response;
 
+    const { errors, message } = data;
+
     const res = {};
 
     switch (status) {
 
       case 401:
         store.dispatch("auth/clean");
-
+        res["errors"] = errors ? errors : data;
         break;
 
       case 422:
-        const { errors, message } = data;
         res["errors"] = errors ? errors : data;
         break;
 
