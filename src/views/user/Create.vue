@@ -19,7 +19,7 @@
           name="name"
           type="text"
           label="Alias"
-          placeholder="samuel1996"
+          placeholder="nickname"
           v-model.lazy="formValues.nickname"
           :value="formValues.nickname"
           :errors="formValuesErrors.nickname"
@@ -31,7 +31,7 @@
           name="name"
           type="text"
           label="Email"
-          placeholder="samuel@gmail.com"
+          placeholder="email@mail.com"
           v-model.lazy="formValues.email"
           :value="formValues.email"
           :errors="formValuesErrors.email"
@@ -159,19 +159,6 @@ export default {
     SelectIngredient,
   },
   setup(props, { emit, attrs }) {
-    const makeid = (length) => {
-      let result = "";
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const charactersLength = characters.length;
-      for (let i = 0; i < length; i++) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
-      }
-      return result;
-    };
-
     const { 
       createFetchingData, 
       createErrors, 
@@ -186,16 +173,11 @@ export default {
       role: yup.object().required(),
     });
 
-    const getRandomInt = (min, max) => {
-      return Math.floor(Math.random() * (max - min)) + min;
-    }
-    const randomInt = getRandomInt(1, 999999);
-
     let formValues = reactive({
-      nickname: `user${randomInt}`,
-      email: `user${randomInt}@mail.com`,
-      password: "12345678",
-      passwordConfirmation: "12345678",
+      nickname: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
     });
 
     const formValuesErrors = ref({});
