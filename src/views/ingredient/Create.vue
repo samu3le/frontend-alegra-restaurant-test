@@ -95,18 +95,6 @@ export default {
   },
   setup(props, { emit, attrs }) {
     const Swal = useSwal();
-    const makeid = (length) => {
-      let result = "";
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const charactersLength = characters.length;
-      for (let i = 0; i < length; i++) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
-      }
-      return result;
-    };
 
     const { createFetchingData, createErrors, create } = useIngredient();
 
@@ -116,11 +104,9 @@ export default {
       // is_active: yup.boolean(),
     });
 
-    const nameFake = makeid(10);
-
     let formValues = reactive({
-      name: nameFake,
-      key: nameFake,
+      name: "",
+      key: "",
     });
 
     const formValuesErrors = ref({});
