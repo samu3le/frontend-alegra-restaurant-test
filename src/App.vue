@@ -15,15 +15,15 @@ import { ref } from 'vue'
 
 import router from '@/router'
 
-import NavBarCustom from './components/NavBarCustom.vue'
-import SideBarCustom from './components/SideBarCustom.vue'
-import LoaderViews from '@/components/LoaderViews.vue'
+import NavBarCustom from './components/NavBarCustom.vue' //Add Component Navbar 
+import SideBarCustom from './components/SideBarCustom.vue' //Add Component SideBar MenU
+import LoaderViews from '@/components/LoaderViews.vue' //Add Views
 
-import useAuth from "@/composables/useAuth";
+import useAuth from "@/composables/useAuth"; //Authenticate
 
 export default {
-    name: 'NavBar',
-    components: {
+    name: 'NavBar', //Name App
+    components: { //use Components
         NavBarCustom,
         SideBarCustom,
         LoaderViews,
@@ -32,7 +32,7 @@ export default {
 
         const {
             verify,
-        } = useAuth();
+        } = useAuth(); // Use Authenticate 
 
         verify();
         
