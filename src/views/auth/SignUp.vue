@@ -15,7 +15,7 @@
             name="name"
             type="text"
             label="Alias"
-            placeholder="samuel1996"
+            placeholder="Nickname"
             v-model.lazy="formValues.nickname"
             :value="formValues.nickname"
             :errors="formValuesErrors.nickname"
@@ -27,7 +27,7 @@
             name="name"
             type="text"
             label="Email"
-            placeholder="samuel@gmail.com"
+            placeholder="mail@mail.com"
             v-model.lazy="formValues.email"
             :value="formValues.email"
             :errors="formValuesErrors.email"
@@ -131,10 +131,6 @@ export default {
 
     const route = useRoute()
 
-    const getRandomInt = (min, max) => {
-      return Math.floor(Math.random() * (max - min)) + min;
-    }
-
     const {
       signUpFetchingData,
       signUpErrors,
@@ -150,13 +146,11 @@ export default {
       passwordConfirmation: yup.string().required().min(2).max(25).oneOf([yup.ref('password')]),
     });
 
-    const randomInt = getRandomInt(1, 999999);
-
     let formValues = reactive({
-      nickname: `user${randomInt}`,
-      email: `user${randomInt}@mail.com`,
-      password: "12345678",
-      passwordConfirmation: "12345678",
+      nickname: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
     });
 
     const formValuesErrors = ref({});
